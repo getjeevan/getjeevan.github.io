@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ashle Gardens — Project Intranet</title>
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #0a0f1e;
+      --bg2:       #111827;
+      --bg3:       #1a2235;
+      --card:      #151d30;
+      --border:    #1e2d4a;
+      --purple:    #7c3aed;
+      --purple-lt: #a78bfa;
+      --blue:      #2563eb;
+      --blue-lt:   #60a5fa;
+      --cyan:      #06b6d4;
+      --green:     #10b981;
+      --yellow:    #f59e0b;
+      --red:       #ef4444;
+      --text:      #e2e8f0;
+      --text-dim:  #94a3b8;
+      --text-faint:#475569;
+      --radius:    10px;
+      --shadow:    0 4px 24px rgba(0,0,0,.5);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ─── Header ──────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #0d1426 0%, #1a0a2e 50%, #0d1a2e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .logo-text h1 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--purple-lt), var(--blue-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      white-space: nowrap;
+    }
+    .logo-text p {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .refresh-badge {
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      white-space: nowrap;
+    }
+    .refresh-badge span { color: var(--green); }
+
+    /* ─── Nav Tabs ────────────────────────────────────────── */
+    nav {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      padding: 0 24px;
+    }
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      color: var(--purple-lt);
+      border-bottom-color: var(--purple);
+    }
+
+    /* ─── Main Content ────────────────────────────────────── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Section Titles ──────────────────────────────────── */
+    .section-header {
+      margin-bottom: 24px;
+    }
+    .section-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .section-header p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    /* ─── Overview Tab ────────────────────────────────────── */
+    .overview-hero {
+      background: linear-gradient(135deg, #0d1a2e, #1a0a2e);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .overview-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(124,58,237,.15), transparent 70%);
+      border-radius: 50%;
+    }
+    .overview-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(37,99,235,.1), transparent 70%);
+      border-radius: 50%;
+    }
+    .overview-hero h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #e2e8f0, var(--purple-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .overview-hero .location {
+      color: var(--cyan);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .overview-hero p {
+      color: var(--text-dim);
+      max-width: 680px;
+      line-height: 1.8;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .stat-card:hover { border-color: var(--purple); }
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--purple-lt), var(--blue-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .vision-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .vision-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-2px);
+    }
+    .vision-card .icon { font-size: 2rem; margin-bottom: 12px; }
+    .vision-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .vision-card p {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* ─── Team Tab ────────────────────────────────────────── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .agent-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .agent-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+    }
+    .agent-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .agent-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .agent-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,.2), rgba(37,99,235,.2));
+      border: 1px solid var(--border);
+    }
+    .agent-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .agent-title { font-size: 0.8rem; color: var(--purple-lt); margin-top: 2px; }
+    .agent-desc {
+      font-size: 0.83rem;
+      color: var(--text-dim);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .agent-channel {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(124,58,237,.12);
+      border: 1px solid rgba(124,58,237,.25);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      color: var(--purple-lt);
+      font-family: monospace;
+    }
+
+    /* ─── Research Tab ────────────────────────────────────── */
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+    .research-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+    .research-card:hover { border-color: var(--blue); }
+    .research-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .research-header .emoji { font-size: 1.4rem; }
+    .research-header h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .research-header .agent-tag {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      background: var(--bg3);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .research-topics {
+      list-style: none;
+      margin-bottom: 14px;
+    }
+    .research-topics li {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(30,45,74,.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .research-topics li::before {
+      content: '›';
+      color: var(--purple-lt);
+      font-size: 1rem;
+    }
+    .research-topics li:last-child { border-bottom: none; }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .status-pending {
+      background: rgba(245,158,11,.1);
+      border: 1px solid rgba(245,158,11,.25);
+      color: var(--yellow);
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ─── Findings Tab ────────────────────────────────────── */
+    .findings-empty {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 60px 40px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .findings-empty .big-icon { font-size: 3.5rem; margin-bottom: 16px; }
+    .findings-empty h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .findings-empty p {
+      font-size: 0.875rem;
+      color: var(--text-faint);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .findings-schema {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+    }
+    .findings-schema h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+    }
+    .schema-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+    }
+    .schema-field {
+      color: var(--cyan);
+      font-family: monospace;
+      min-width: 120px;
+    }
+    .schema-type {
+      color: var(--purple-lt);
+      font-family: monospace;
+      min-width: 80px;
+    }
+    .schema-desc { color: var(--text-faint); }
+    .findings-log {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .finding-entry {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .finding-entry .agent-icon {
+      font-size: 1.4rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .finding-meta {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+    .finding-text {
+      font-size: 0.875rem;
+      color: var(--text-dim);
+    }
+    .finding-tags {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--bg3);
+      color: var(--text-faint);
+      border: 1px solid var(--border);
+    }
+
+    /* ─── Timeline Tab ────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 12px; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple), var(--blue), transparent);
+    }
+    .milestone {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .milestone::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid var(--purple);
+      background: var(--bg);
+    }
+    .milestone.done::before {
+      background: var(--purple);
+      box-shadow: 0 0 0 4px rgba(124,58,237,.2);
+    }
+    .milestone.active::before {
+      background: var(--blue);
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(37,99,235,.2);
+      animation: pulse 2s infinite;
+    }
+    .milestone-date {
+      font-size: 0.75rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .milestone h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .milestone p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+    .milestone .status-chip {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+    .chip-done { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); color: var(--green); }
+    .chip-active { background: rgba(37,99,235,.1); border: 1px solid rgba(37,99,235,.25); color: var(--blue-lt); }
+    .chip-pending { background: rgba(71,85,105,.1); border: 1px solid rgba(71,85,105,.25); color: var(--text-faint); }
+
+    /* ─── Footer ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-faint);
+    }
+    footer a { color: var(--purple-lt); text-decoration: none; }
+
+    /* ─── Utilities ───────────────────────────────────────── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    /* ─── Responsive ──────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .overview-hero { padding: 24px; }
+      .overview-hero h2 { font-size: 1.4rem; }
+      .header-inner { height: auto; padding: 12px 0; flex-wrap: wrap; }
+      .refresh-badge { display: none; }
+      main { padding: 20px 16px 48px; }
+      .tab-btn { padding: 12px 14px; font-size: 0.82rem; }
+      .research-grid { grid-template-columns: 1fr; }
+      .vision-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Header ─────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#" onclick="showTab('overview')">
+      <div class="logo-icon">🌿</div>
+      <div class="logo-text">
+        <h1>Ashle Gardens</h1>
+        <p>Project Intranet · Madurai, TN</p>
+      </div>
+    </a>
+    <div class="refresh-badge">
+      <span>●</span> Updated by AI agents via GitHub Actions
+    </div>
+  </div>
+</header>
+
+<!-- ─── Nav ────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+    <button class="tab-btn" onclick="showTab('team')">Team</button>
+    <button class="tab-btn" onclick="showTab('research')">Research</button>
+    <button class="tab-btn" onclick="showTab('findings')">Findings</button>
+    <button class="tab-btn" onclick="showTab('timeline')">Timeline</button>
+  </div>
+</nav>
+
+<!-- ─── Main ────────────────────────────────────────────────── -->
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="tab-overview" class="tab-panel active">
+    <div class="overview-hero">
+      <h2>Ashle Gardens</h2>
+      <div class="location">📍 Madurai, Tamil Nadu, India</div>
+      <p>
+        A retirement community and permaculture farm integrating senior living, regenerative agriculture,
+        heritage cuisine, eco-tourism, circular economy, and skill development under one vision.
+        Designed for NRI and local investors seeking meaningful, sustainable returns while
+        co-creating a model village economy in the heart of Tamil Nadu.
+      </p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="value">10</div>
+        <div class="label">AI Agents</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">5+</div>
+        <div class="label">Revenue Streams</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">TN</div>
+        <div class="label">State Focus</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">NRI</div>
+        <div class="label">Investor Target</div>
+      </div>
+      <div class="stat-card">
+        <div class="value">0%</div>
+        <div class="label">Waste Target</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <h2>Project Pillars</h2>
+      <p>Six integrated verticals that form the Ashle Gardens ecosystem</p>
+    </div>
+
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="icon">🏡</div>
+        <h3>Retirement Community</h3>
+        <p>Dignified, community-led senior living with health support, cultural programming, and connection to nature.</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🌳</div>
+        <h3>Permaculture Farm</h3>
+        <p>Syntropic agroforestry, water harvesting, food forests, and regenerative land design for long-term ecological health.</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🍽️</div>
+        <h3>Heritage Kitchen</h3>
+        <p>FSSAI-certified commercial kitchen featuring Chettinad and regional Tamil cuisine, catering and culinary tourism.</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🧺</div>
+        <h3>Commercial Laundry</h3>
+        <p>Eco-friendly B2B laundry operations serving hospitals, hotels, and institutions in the Madurai region.</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">🎓</div>
+        <h3>Centre of Excellence</h3>
+        <p>ITI/polytechnic-affiliated skill development hub in green trades: biochar, permaculture, solar, and more.</p>
+      </div>
+      <div class="vision-card">
+        <div class="icon">♻️</div>
+        <h3>Circular Economy</h3>
+        <p>Biogas, biochar, vermicompost, carbon credits — zero-waste loops that turn farm waste into valuable inputs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="tab-team" class="tab-panel">
+    <div class="section-header">
+      <h2>AI Agent Team</h2>
+      <p>10 specialized AI agents driving research, planning, and execution across all verticals</p>
+    </div>
+
+    <div class="team-grid">
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">👨‍💼</div>
+          <div>
+            <div class="agent-name">Rajan-Anna</div>
+            <div class="agent-title">Government Liaison</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Navigates land acquisition, Tamil Nadu government schemes, CMDA/DTCP approvals,
+          and state-level funding opportunities for the project.
+        </div>
+        <span class="agent-channel"># govt-schemes</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">🌳</div>
+          <div>
+            <div class="agent-name">Dr. Meera</div>
+            <div class="agent-title">Permaculture Designer</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Designs site layout, water systems, food forests, and biodiversity strategies.
+          Specialist in syntropic agroforestry and land regeneration for South Indian climate.
+        </div>
+        <span class="agent-channel"># site-design</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">💼</div>
+          <div>
+            <div class="agent-name">Karthik</div>
+            <div class="agent-title">CFO · Financial Architect</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Builds CAPEX models, structures NRI investment vehicles (LLP, GIFT City), manages
+          financial projections and ROI analysis across all revenue streams.
+        </div>
+        <span class="agent-channel"># finance</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">🧺</div>
+          <div>
+            <div class="agent-name">Anbu</div>
+            <div class="agent-title">Laundry Operations</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Plans and manages the commercial laundry vertical — B2B client pipeline,
+          hospital/hotel compliance (NABH, FSSAI), equipment sourcing, and eco-wash operations.
+        </div>
+        <span class="agent-channel"># laundry</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">👩‍🍳</div>
+          <div>
+            <div class="agent-name">Chef Selvi</div>
+            <div class="agent-title">Kitchen & Culinary</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Runs the commercial kitchen vertical — FSSAI licensing, Chettinad heritage menus,
+          institutional catering, culinary tourism, and packaged food product development.
+        </div>
+        <span class="agent-channel"># kitchen</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">🎓</div>
+          <div>
+            <div class="agent-name">Prof. Sundaram</div>
+            <div class="agent-title">COE Director</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Develops the Centre of Excellence — ITI/polytechnic partnerships, curriculum for
+          green trades, certification pathways, and skill development funding via NSDC/PMKVY.
+        </div>
+        <span class="agent-channel"># coe</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">🌿</div>
+          <div>
+            <div class="agent-name">Deepa</div>
+            <div class="agent-title">Eco-Tourism Lead</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Designs eco-tourism experiences, MICE packages, school nature programs, and TN Tourism
+          empanelment. Bridges farm operations with hospitality revenue.
+        </div>
+        <span class="agent-channel"># tourism</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">♻️</div>
+          <div>
+            <div class="agent-name">Velu</div>
+            <div class="agent-title">Circular Economy</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Engineers zero-waste loops — biochar production, biogas digesters, organic farm inputs,
+          vermicomposting, and carbon credit registration with VCS/Gold Standard.
+        </div>
+        <span class="agent-channel"># circular</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">📣</div>
+          <div>
+            <div class="agent-name">Priya</div>
+            <div class="agent-title">Brand & NRI Sales</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Builds the brand narrative, NRI diaspora marketing campaigns, digital presence,
+          investor storytelling, and community growth strategy across Tamil NRI networks.
+        </div>
+        <span class="agent-channel"># brand</span>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-top">
+          <div class="agent-avatar">⚖️</div>
+          <div>
+            <div class="agent-name">Adv. Meenakshi</div>
+            <div class="agent-title">Legal Counsel</div>
+          </div>
+        </div>
+        <div class="agent-desc">
+          Handles all legal matters — RERA registration, FEMA compliance for NRI investments,
+          labour law, contracts, land title due diligence, and entity structuring.
+        </div>
+        <span class="agent-channel"># legal</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="tab-research" class="tab-panel">
+    <div class="section-header">
+      <h2>Research Areas</h2>
+      <p>Active research tracks assigned to each agent — first run pending</p>
+    </div>
+
+    <div class="research-grid">
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">👨‍💼</span>
+          <h3>Government Schemes & Land</h3>
+          <span class="agent-tag">Rajan-Anna</span>
+        </div>
+        <ul class="research-topics">
+          <li>TN Agri-business Promotion Scheme eligibility</li>
+          <li>CMDA / DTCP land use conversion process</li>
+          <li>Senior citizen housing scheme subsidies</li>
+          <li>TIDCO land bank allotment options</li>
+          <li>Patta transfer and encumbrance clearance</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">🌳</span>
+          <h3>Site Design & Permaculture</h3>
+          <span class="agent-tag">Dr. Meera</span>
+        </div>
+        <ul class="research-topics">
+          <li>Madurai rainfall patterns &amp; water table data</li>
+          <li>Native tree species for syntropic farming</li>
+          <li>Swale &amp; check-dam placement models</li>
+          <li>Soil carbon sequestration benchmarks</li>
+          <li>Contour mapping &amp; zone planning</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">💼</span>
+          <h3>Finance &amp; Investment Structuring</h3>
+          <span class="agent-tag">Karthik</span>
+        </div>
+        <ul class="research-topics">
+          <li>LLP vs AOP structure for NRI co-investment</li>
+          <li>GIFT City IFSC investment routes</li>
+          <li>CAPEX breakdown per vertical</li>
+          <li>Revenue forecasts (years 1–5)</li>
+          <li>DPIIT agri-startup tax exemptions</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">🧺</span>
+          <h3>Commercial Laundry</h3>
+          <span class="agent-tag">Anbu</span>
+        </div>
+        <ul class="research-topics">
+          <li>Hospital laundry compliance (NABH 5th ed.)</li>
+          <li>Industrial washer capacity benchmarks</li>
+          <li>Water recycling systems for laundries</li>
+          <li>B2B pricing models in Madurai market</li>
+          <li>MSME registration &amp; TN industrial shed subsidy</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">👩‍🍳</span>
+          <h3>Kitchen &amp; Heritage Cuisine</h3>
+          <span class="agent-tag">Chef Selvi</span>
+        </div>
+        <ul class="research-topics">
+          <li>FSSAI central license requirements</li>
+          <li>Chettinad GI-tagged products list</li>
+          <li>Institutional catering pricing (schools, hospitals)</li>
+          <li>Cold-chain packaging for packaged foods</li>
+          <li>e-Commerce channels for heritage food products</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">🎓</span>
+          <h3>Centre of Excellence</h3>
+          <span class="agent-tag">Prof. Sundaram</span>
+        </div>
+        <ul class="research-topics">
+          <li>NSDC/PMKVY funding eligibility for new CoE</li>
+          <li>ITI affiliation process (DTE Tamil Nadu)</li>
+          <li>Green trades in-demand in South India</li>
+          <li>Partnership models with polytechnics</li>
+          <li>Employer linkage for placement guarantees</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">🌿</span>
+          <h3>Eco-Tourism &amp; MICE</h3>
+          <span class="agent-tag">Deepa</span>
+        </div>
+        <ul class="research-topics">
+          <li>TN Tourism eco-resort classification norms</li>
+          <li>School nature camp licensing requirements</li>
+          <li>Corporate MICE rates &amp; demand in Madurai</li>
+          <li>Foreign tourist flow data for Madurai region</li>
+          <li>Agri-tourism registration under TN Tourism</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">♻️</span>
+          <h3>Circular Economy &amp; Carbon</h3>
+          <span class="agent-tag">Velu</span>
+        </div>
+        <ul class="research-topics">
+          <li>Biochar yield rates from agricultural waste</li>
+          <li>Gold Standard carbon credit registration cost</li>
+          <li>Biogas digester sizing for 50-acre farm</li>
+          <li>Vermicompost market pricing in Tamil Nadu</li>
+          <li>NABARD subsidy for organic farming inputs</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">📣</span>
+          <h3>Brand &amp; NRI Marketing</h3>
+          <span class="agent-tag">Priya</span>
+        </div>
+        <ul class="research-topics">
+          <li>Tamil diaspora community hubs (USA, UK, SG, AUS)</li>
+          <li>NRI retirement community sentiment research</li>
+          <li>Digital channel performance benchmarks</li>
+          <li>Competing retirement project positioning</li>
+          <li>Brand storytelling frameworks for agri-living</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+      <div class="research-card">
+        <div class="research-header">
+          <span class="emoji">⚖️</span>
+          <h3>Legal &amp; Compliance</h3>
+          <span class="agent-tag">Adv. Meenakshi</span>
+        </div>
+        <ul class="research-topics">
+          <li>RERA applicability for retirement projects in TN</li>
+          <li>FEMA rules for NRI agricultural land purchase</li>
+          <li>Labour law compliance (construction + ops phases)</li>
+          <li>Land due diligence checklist for Madurai district</li>
+          <li>Entity structure: Section 8 vs. LLP vs. Pvt Ltd</li>
+        </ul>
+        <span class="status-badge status-pending"><span class="status-dot"></span>Pending first run</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section id="tab-findings" class="tab-panel">
+    <div class="section-header">
+      <h2>Findings Log</h2>
+      <p>Agent-generated research findings, updated automatically via GitHub Actions</p>
+    </div>
+
+    <div class="findings-empty">
+      <div class="big-icon">📋</div>
+      <h3>No findings yet</h3>
+      <p>
+        Findings will appear here once agents complete their first research runs.
+        Each entry will include the agent name, date, category tags, and a summary of key discoveries.
+      </p>
+    </div>
+
+    <div class="findings-schema">
+      <h3>Findings Entry Schema</h3>
+      <div class="schema-row">
+        <span class="schema-field">agent</span>
+        <span class="schema-type">string</span>
+        <span class="schema-desc">Agent name (e.g., "Dr. Meera")</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">date</span>
+        <span class="schema-type">ISO 8601</span>
+        <span class="schema-desc">Date finding was generated</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">category</span>
+        <span class="schema-type">string[]</span>
+        <span class="schema-desc">Topic tags (e.g., ["land", "scheme", "TN"])</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">summary</span>
+        <span class="schema-type">string</span>
+        <span class="schema-desc">Plain-language finding summary</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">confidence</span>
+        <span class="schema-type">high|med|low</span>
+        <span class="schema-desc">Agent's confidence level in the finding</span>
+      </div>
+      <div class="schema-row">
+        <span class="schema-field">source</span>
+        <span class="schema-type">url</span>
+        <span class="schema-desc">Primary source or reference</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="tab-timeline" class="tab-panel">
+    <div class="section-header">
+      <h2>Project Timeline</h2>
+      <p>Major milestones from inception to operations — updated as the project advances</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="milestone done">
+        <div class="milestone-date">Phase 0 · Q1 2025</div>
+        <h3>Concept &amp; Team Formation</h3>
+        <p>Project vision defined. AI agent team assembled and assigned to verticals. Intranet infrastructure established.</p>
+        <span class="status-chip chip-done">Completed</span>
+      </div>
+
+      <div class="milestone active">
+        <div class="milestone-date">Phase 1 · Q2–Q3 2025</div>
+        <h3>Research &amp; Feasibility</h3>
+        <p>
+          All 10 agents conducting parallel research: land identification, government scheme mapping,
+          financial modelling, legal structuring, and market sizing across all verticals.
+        </p>
+        <span class="status-chip chip-active">In Progress</span>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Phase 2 · Q4 2025</div>
+        <h3>Land Acquisition &amp; Approvals</h3>
+        <p>Identify and acquire suitable land parcel in Madurai district. Initiate CMDA/DTCP approvals and patta process.</p>
+        <span class="status-chip chip-pending">Upcoming</span>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Phase 3 · Q1 2026</div>
+        <h3>NRI Investor Roadshow</h3>
+        <p>Launch NRI investor outreach campaign across Tamil diaspora hubs. Financial prospectus finalized. LLP/entity formed.</p>
+        <span class="status-chip chip-pending">Upcoming</span>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Phase 4 · Q2–Q4 2026</div>
+        <h3>Infrastructure &amp; Construction</h3>
+        <p>Site development begins: permaculture zones, residential units, commercial kitchen building, laundry facility, COE block.</p>
+        <span class="status-chip chip-pending">Upcoming</span>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Phase 5 · 2027</div>
+        <h3>Soft Launch &amp; Pilot Operations</h3>
+        <p>
+          First residents move in. Kitchen and laundry begin pilot B2B ops. Eco-tourism test programs run.
+          Carbon credit verification initiated.
+        </p>
+        <span class="status-chip chip-pending">Upcoming</span>
+      </div>
+
+      <div class="milestone">
+        <div class="milestone-date">Phase 6 · 2028+</div>
+        <h3>Full Operations &amp; Scale</h3>
+        <p>All verticals at full capacity. COE batch 2 enrolled. Carbon credits issued. Expansion planning begins.</p>
+        <span class="status-chip chip-pending">Upcoming</span>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── Footer ─────────────────────────────────────────────── -->
+<footer>
+  Ashle Gardens Project Intranet ·
+  Updated by AI agents via GitHub Actions ·
+  <a href="https://github.com/getjeevan/getjeevan.github.io" target="_blank">View on GitHub</a>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // Load last_updated.json and show in refresh badge if available
+  fetch('last_updated.json')
+    .then(r => r.json())
+    .then(data => {
+      const badge = document.querySelector('.refresh-badge');
+      if (badge && data.updated_at) {
+        const d = new Date(data.updated_at);
+        badge.innerHTML = '<span>●</span> Last updated ' + d.toLocaleDateString('en-IN', {
+          day: 'numeric', month: 'short', year: 'numeric'
+        });
+      }
+    })
+    .catch(() => {}); // graceful — file may not exist yet
+</script>
+
+</body>
+</html>

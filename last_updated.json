@@ -1,0 +1,15 @@
+{
+  "updated_at": "2026-05-15T00:00:00Z",
+  "agents": {
+    "rajan-anna": { "last_run": null, "status": "pending" },
+    "dr-meera": { "last_run": null, "status": "pending" },
+    "karthik": { "last_run": null, "status": "pending" },
+    "anbu": { "last_run": null, "status": "pending" },
+    "chef-selvi": { "last_run": null, "status": "pending" },
+    "prof-sundaram": { "last_run": null, "status": "pending" },
+    "deepa": { "last_run": null, "status": "pending" },
+    "velu": { "last_run": null, "status": "pending" },
+    "priya": { "last_run": null, "status": "pending" },
+    "adv-meenakshi": { "last_run": null, "status": "pending" }
+  }
+}
