@@ -1,15 +1,60 @@
 {
-  "updated_at": "2026-05-15T00:00:00Z",
+  "updated_at": "2026-05-18T17:23:24Z",
+  "project": "Ashle Gardens",
+  "site": "T. Kadambankulam, Kariapatti, Virudhunagar",
+  "business_units": 12,
+  "research_docs": 39,
+  "total_words": 68180,
   "agents": {
-    "rajan-anna": { "last_run": null, "status": "pending" },
-    "dr-meera": { "last_run": null, "status": "pending" },
-    "karthik": { "last_run": null, "status": "pending" },
-    "anbu": { "last_run": null, "status": "pending" },
-    "chef-selvi": { "last_run": null, "status": "pending" },
-    "prof-sundaram": { "last_run": null, "status": "pending" },
-    "deepa": { "last_run": null, "status": "pending" },
-    "velu": { "last_run": null, "status": "pending" },
-    "priya": { "last_run": null, "status": "pending" },
-    "adv-meenakshi": { "last_run": null, "status": "pending" }
+    "rajan-anna": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 2
+    },
+    "dr-meera": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    },
+    "karthik": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    },
+    "anbu": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 3
+    },
+    "chef-selvi": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    },
+    "prof-sundaram": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    },
+    "deepa": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 3
+    },
+    "velu": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    },
+    "priya": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 3
+    },
+    "adv-meenakshi": {
+      "last_run": "2026-05-16",
+      "status": "active",
+      "docs": 4
+    }
   }
 }
