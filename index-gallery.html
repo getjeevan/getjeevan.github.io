@@ -259,7 +259,7 @@
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-link">← Back to Home</a>
+        <a href="/" class="back-link">← Home</a>
 
         <header>
             <h1>🎨 Ashle Gardens Visual Gallery</h1>
@@ -374,7 +374,7 @@
             const item = document.createElement('div');
             item.className = 'gallery-item';
             item.innerHTML = `
-                <img src="images/${comp.image}" alt="${comp.title}" onclick="openModal('images/${comp.image}', '${comp.title}')">
+                <img src="gallery-images/${comp.image}" alt="${comp.title}" onclick="openModal('gallery-images/${comp.image}', '${comp.title}')">
                 <div class="gallery-item-info">
                     <div class="gallery-item-title">${comp.title}</div>
                     <div class="gallery-item-desc">${comp.desc}</div>
