@@ -1,60 +1,138 @@
 {
-  "updated_at": "2026-05-18T17:23:24Z",
+  "updated_at": "2026-06-06T12:47:00Z",
   "project": "Ashle Gardens",
-  "site": "T. Kadambankulam, Kariapatti, Virudhunagar",
+  "site": "Meenakshipuram, Kariapatti, Virudhunagar",
   "business_units": 12,
-  "research_docs": 39,
-  "total_words": 68180,
+  "research_docs": 45,
+  "total_words": 94180,
+  "phase_1_status": "active_sprint",
+  "phase_1_sprint": {
+    "start": "2026-06-06",
+    "end": "2026-07-04",
+    "documents": 6,
+    "capex_range": "₹1.8–2.5 Cr",
+    "monthly_revenue_target": "₹90–120L",
+    "agents_coordinated": 10
+  },
   "agents": {
     "rajan-anna": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 2
+      "docs": 2,
+      "role": "Govt Liaison & Approvals",
+      "tier": 3
     },
     "dr-meera": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 5,
+      "role": "Permaculture & Site Design",
+      "tier": 1
     },
     "karthik": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 5,
+      "role": "CFO & Finance",
+      "tier": 1
     },
     "anbu": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 3
+      "docs": 3,
+      "role": "Commercial Laundry Head",
+      "tier": 2
     },
     "chef-selvi": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 4,
+      "role": "Commercial Kitchen Head",
+      "tier": 2
     },
     "prof-sundaram": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 4,
+      "role": "COE Innovation Lab Director",
+      "tier": 2
     },
     "deepa": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 3
+      "docs": 4,
+      "role": "Eco-tourism & Experiences Lead",
+      "tier": 1
     },
     "velu": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 5,
+      "role": "Circular Economy Lead",
+      "tier": 2
     },
     "priya": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 3
+      "docs": 4,
+      "role": "Brand & NRI Sales",
+      "tier": 3
     },
     "adv-meenakshi": {
-      "last_run": "2026-05-16",
+      "last_run": "2026-06-06",
       "status": "active",
-      "docs": 4
+      "docs": 4,
+      "role": "Legal & Compliance",
+      "tier": 3
     }
-  }
+  },
+  "phase_1_documents": [
+    {
+      "title": "Phase 1 Sprint — CEO Full Coordination",
+      "path": "/ashle-gardens/phase-1/Phase-1-Sprint-CEO-Coordination.md",
+      "domain": "coordination",
+      "words": 5500,
+      "created": "2026-06-06"
+    },
+    {
+      "title": "Phase 1 CFO Brief — CAPEX Architecture & MSME Loan",
+      "path": "/ashle-gardens/phase-1/Phase-1-CFO-Brief.md",
+      "domain": "finance",
+      "words": 3800,
+      "owner": "karthik",
+      "created": "2026-06-06"
+    },
+    {
+      "title": "Phase 1 Brand Strategy — NRI Investor + Visitor Marketing",
+      "path": "/ashle-gardens/phase-1/Phase-1-Brand-Strategy.md",
+      "domain": "brand",
+      "words": 4200,
+      "owner": "priya",
+      "created": "2026-06-06"
+    },
+    {
+      "title": "Phase 1 Circular Economy Integration — Waste to Revenue",
+      "path": "/ashle-gardens/phase-1/Phase-1-Circular-Economy-Integration.md",
+      "domain": "circular",
+      "words": 4100,
+      "owner": "velu",
+      "created": "2026-06-06"
+    },
+    {
+      "title": "Phase 1 Master Site Plan — Spatial Layout & Utilities",
+      "path": "/ashle-gardens/phase-1/Phase-1-Master-Site-Plan.md",
+      "domain": "site",
+      "words": 6100,
+      "owner": "dr-meera",
+      "created": "2026-06-06"
+    },
+    {
+      "title": "Cambodian Temple Heritage Attraction — Eco-Tourism Enhancement",
+      "path": "/ashle-gardens/phase-1/Eco-tourism — Cambodian Temple Heritage Attraction.md",
+      "domain": "experience",
+      "words": 2500,
+      "owner": "deepa",
+      "created": "2026-06-06"
+    }
+  ]
 }
