@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hermes — Paper-Trading Agent</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0a0f1e; --bg2:#111827; --card:#151d30; --card2:#1a2235;
+    --border:#1e2d4a; --border-lt:#2a3c5e;
+    --purple:#7c3aed; --purple-lt:#a78bfa; --blue:#2563eb; --blue-lt:#60a5fa;
+    --cyan:#06b6d4; --green:#10b981; --green-lt:#34d399; --yellow:#f59e0b;
+    --red:#ef4444; --red-lt:#f87171;
+    --text:#e2e8f0; --text-dim:#94a3b8; --text-faint:#475569;
+    --radius:12px; --shadow:0 4px 24px rgba(0,0,0,.5);
+    --mono:'SF Mono',ui-monospace,'Cascadia Code',Menlo,Consolas,monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:
+    radial-gradient(1200px 600px at 80% -10%,rgba(124,58,237,.10),transparent 60%),
+    radial-gradient(900px 500px at -10% 10%,rgba(6,182,212,.08),transparent 55%),
+    var(--bg);color:var(--text);min-height:100vh;line-height:1.55}
+
+  /* Header */
+  header{background:linear-gradient(135deg,#0d1426 0%,#1a0a2e 50%,#0d1a2e 100%);
+    border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(12px)}
+  .head-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;height:66px;gap:16px}
+  .brand{display:flex;align-items:center;gap:13px}
+  .glyph{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--purple),var(--cyan));font-size:20px;
+    box-shadow:0 0 24px rgba(124,58,237,.5)}
+  .brand h1{font-size:1.18rem;letter-spacing:.3px;font-weight:650}
+  .brand .sub{font-size:.72rem;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase}
+  .head-meta{display:flex;align-items:center;gap:18px;font-size:.8rem;color:var(--text-dim)}
+  .pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;
+    border:1px solid var(--border-lt);background:rgba(255,255,255,.02);font-size:.76rem;font-weight:600}
+  .dot{width:8px;height:8px;border-radius:50%}
+  .dot.live{background:var(--green);box-shadow:0 0 0 0 rgba(16,185,129,.6);animation:pulse 2.4s infinite}
+  .dot.closed{background:var(--text-faint)}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,.5)}70%{box-shadow:0 0 0 9px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+
+  main{max-width:1240px;margin:0 auto;padding:30px 24px 80px}
+
+  /* Hero */
+  .hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:8px}
+  .hero h2{font-size:1.85rem;font-weight:680;letter-spacing:-.5px}
+  .hero p{color:var(--text-dim);font-size:.92rem;max-width:640px;margin-top:4px}
+  .progress{min-width:230px}
+  .progress .lbl{display:flex;justify-content:space-between;font-size:.74rem;color:var(--text-dim);
+    text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+  .bar{height:9px;border-radius:99px;background:var(--card2);overflow:hidden;border:1px solid var(--border)}
+  .bar > i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+
+  /* KPI grid */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin:26px 0}
+  .kpi{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--border);
+    border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden}
+  .kpi::after{content:"";position:absolute;inset:0 0 auto 0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent,var(--blue)),transparent);opacity:.7}
+  .kpi .k-lbl{font-size:.74rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:1.1px}
+  .kpi .k-val{font-family:var(--mono);font-size:1.62rem;font-weight:600;margin-top:6px;letter-spacing:-.5px}
+  .kpi .k-sub{font-size:.76rem;color:var(--text-faint);margin-top:3px}
+  .pos{color:var(--green-lt)} .neg{color:var(--red-lt)}
+
+  /* layout */
+  .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-top:6px}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .panel{background:linear-gradient(160deg,var(--card),var(--bg2));border:1px solid var(--border);
+    border-radius:var(--radius);padding:20px 22px;margin-bottom:20px}
+  .panel h3{font-size:.82rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--text-dim);
+    margin-bottom:16px;display:flex;align-items:center;gap:9px}
+  .panel h3 .tag{margin-left:auto;font-size:.68rem;color:var(--text-faint);letter-spacing:.5px;text-transform:none}
+
+  /* equity chart */
+  .chart-wrap{position:relative}
+  svg.equity{width:100%;height:170px;display:block}
+  .chart-foot{display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-faint);
+    font-family:var(--mono);margin-top:6px}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:.84rem}
+  th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-faint);
+    padding:8px 10px;border-bottom:1px solid var(--border)}
+  td{padding:10px;border-bottom:1px solid rgba(30,45,74,.5);font-family:var(--mono);font-size:.82rem}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(96,165,250,.04)}
+  .sym{font-weight:650;font-family:inherit;letter-spacing:.3px}
+  .empty{color:var(--text-faint);font-size:.86rem;padding:18px 4px;text-align:center}
+
+  /* journal timeline */
+  .feed{display:flex;flex-direction:column;gap:2px;max-height:520px;overflow-y:auto;padding-right:6px}
+  .ev{display:grid;grid-template-columns:74px 1fr;gap:12px;padding:11px 4px;border-bottom:1px solid rgba(30,45,74,.45)}
+  .ev:last-child{border-bottom:none}
+  .ev .when{font-family:var(--mono);font-size:.72rem;color:var(--text-faint)}
+  .ev .badge{display:inline-block;font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;
+    padding:2px 8px;border-radius:6px;margin-bottom:4px}
+  .b-thesis{background:rgba(124,58,237,.16);color:var(--purple-lt)}
+  .b-prediction{background:rgba(6,182,212,.16);color:#67e8f9}
+  .b-lesson{background:rgba(245,158,11,.16);color:#fcd34d}
+  .b-observation{background:rgba(148,163,184,.14);color:var(--text-dim)}
+  .b-order{background:rgba(16,185,129,.16);color:var(--green-lt)}
+  .b-close{background:rgba(239,68,68,.16);color:var(--red-lt)}
+  .ev .body{font-size:.86rem;color:var(--text)}
+  .ev .meta{font-size:.74rem;color:var(--text-dim);font-family:var(--mono);margin-top:3px}
+
+  /* strategy + sessions */
+  pre.doc{white-space:pre-wrap;font-family:var(--mono);font-size:.8rem;color:#cbd5e1;
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;
+    max-height:420px;overflow-y:auto;line-height:1.6}
+  details.sess{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:var(--bg)}
+  details.sess summary{cursor:pointer;padding:12px 15px;font-family:var(--mono);font-size:.8rem;
+    color:var(--blue-lt);list-style:none}
+  details.sess summary::-webkit-details-marker{display:none}
+  details.sess[open] summary{border-bottom:1px solid var(--border)}
+  details.sess pre{white-space:pre-wrap;font-family:var(--mono);font-size:.76rem;color:#b7c2d6;
+    padding:14px 16px;max-height:360px;overflow-y:auto}
+
+  .rules{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .rule{font-size:.72rem;color:var(--text-dim);background:rgba(255,255,255,.03);border:1px solid var(--border);
+    border-radius:7px;padding:5px 10px}
+  .banner{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);color:#fcd34d;
+    border-radius:10px;padding:11px 15px;font-size:.82rem;margin-bottom:22px;display:flex;gap:10px;align-items:center}
+  footer{max-width:1240px;margin:0 auto;padding:24px;color:var(--text-faint);font-size:.76rem;
+    border-top:1px solid var(--border);text-align:center}
+  a{color:var(--blue-lt);text-decoration:none}
+  .skel{color:var(--text-faint)}
+</style>
+</head>
+<body>
+<header>
+  <div class="head-in">
+    <div class="brand">
+      <div class="glyph">⚡</div>
+      <div>
+        <h1>Hermes</h1>
+        <div class="sub">Paper-Trading Agent</div>
+      </div>
+    </div>
+    <div class="head-meta">
+      <span class="pill" id="market-pill"><span class="dot closed"></span><span id="market-txt">—</span></span>
+      <span id="updated" class="skel">loading…</span>
+    </div>
+  </div>
+</header>
+
+<main id="root">
+  <div class="banner"><span>📄</span><span><strong>Paper trading only.</strong> Every figure on this page is simulated via the Alpaca paper API — no real capital is at risk.</span></div>
+
+  <div class="hero">
+    <div>
+      <h2>10-Day Learning Loop</h2>
+      <p id="hero-sub" class="skel">Connecting to the trading desk…</p>
+    </div>
+    <div class="progress">
+      <div class="lbl"><span>Loop progress</span><span id="day-txt">— / —</span></div>
+      <div class="bar"><i id="day-bar" style="width:0%"></i></div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <div>
+      <div class="panel">
+        <h3>Equity Curve <span class="tag" id="equity-tag"></span></h3>
+        <div class="chart-wrap"><svg class="equity" id="equity-svg" viewBox="0 0 600 170" preserveAspectRatio="none"></svg></div>
+        <div class="chart-foot"><span id="eq-start">—</span><span id="eq-end">—</span></div>
+      </div>
+      <div class="panel">
+        <h3>Open Positions <span class="tag" id="pos-tag"></span></h3>
+        <div id="positions"></div>
+      </div>
+      <div class="panel">
+        <h3>Closed Trades <span class="tag" id="trades-tag"></span></h3>
+        <div id="trades"></div>
+      </div>
+    </div>
+    <div>
+      <div class="panel">
+        <h3>Decision Journal <span class="tag">live feed</span></h3>
+        <div class="feed" id="feed"></div>
+      </div>
+      <div class="panel">
+        <h3>Risk Guardrails <span class="tag">enforced in code</span></h3>
+        <div class="rules">
+          <span class="rule">≤ 5% equity / trade</span>
+          <span class="rule">≤ 8 open positions</span>
+          <span class="rule">≤ 10 orders / day</span>
+          <span class="rule">paper endpoint locked</span>
+          <span class="rule">no chasing losses</span>
+          <span class="rule">thesis required per trade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Living Strategy <span class="tag" id="strat-tag"></span></h3>
+    <pre class="doc" id="strategy">—</pre>
+  </div>
+
+  <div class="panel">
+    <h3>Recent Sessions <span class="tag">analyst transcripts</span></h3>
+    <div id="sessions"></div>
+  </div>
+</main>
+
+<footer>
+  Hermes runs Claude Opus 4.8 in a container on a private host and publishes this snapshot after each session.
+  <a href="../index.html">← back to intranet</a>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmtUSD=n=>n==null||isNaN(n)?'—':'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+const fmtUSD2=n=>n==null||isNaN(n)?'—':'$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const signed=n=>{n=Number(n);const s=(n>=0?'+':'−')+'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});return s;};
+const pct=n=>n==null?'—':(Number(n)*100).toFixed(1)+'%';
+const esc=s=>(s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function ago(iso){if(!iso)return'—';const d=(Date.now()-new Date(iso))/1000;
+  if(d<90)return'just now';if(d<3600)return Math.round(d/60)+'m ago';
+  if(d<86400)return Math.round(d/3600)+'h ago';return Math.round(d/86400)+'d ago';}
+function shortTime(iso){if(!iso)return'';const d=new Date(iso);
+  return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});}
+
+function kpi(label,val,sub,cls,accent){return `<div class="kpi" style="--accent:${accent}">
+  <div class="k-lbl">${label}</div><div class="k-val ${cls||''}">${val}</div>
+  <div class="k-sub">${sub||''}</div></div>`;}
+
+function render(d){
+  // header
+  const open=d.market_open;
+  $('market-pill').innerHTML=`<span class="dot ${open?'live':'closed'}"></span>`+
+    `<span>${open?'Market open':'Market closed'}</span>`;
+  $('updated').textContent='updated '+ago(d.updated_at);
+  $('updated').classList.remove('skel');
+
+  const di=d.day_index||0, td=d.total_days||10;
+  $('day-txt').textContent=`Day ${di} / ${td}`;
+  $('day-bar').style.width=Math.min(100,di/td*100)+'%';
+  const acct=d.account||{};
+  $('hero-sub').classList.remove('skel');
+  $('hero-sub').innerHTML=d.report_done
+    ? 'The 10-day loop is complete — see the final report in the latest session below.'
+    : `Account <span style="font-family:var(--mono)">${esc(acct.account_number||'—')}</span> · model <span style="font-family:var(--mono)">${esc(d.model||'—')}</span>`+
+      (open?'':` · next open ${d.next_open?shortTime(d.next_open):'—'}`);
+
+  // KPIs
+  const perf=d.performance||{};
+  const rpnl=perf.total_realized_pnl||0;
+  const eq=acct.equity!=null?Number(acct.equity):null;
+  let dayChg='';
+  const ph=d.equity_history;
+  if(ph&&ph.profit_loss_pct&&ph.profit_loss_pct.length){
+    const last=ph.profit_loss_pct[ph.profit_loss_pct.length-1];
+    if(last!=null)dayChg=(last>=0?'+':'')+(last*100).toFixed(2)+'% today';
+  }
+  $('kpis').innerHTML=[
+    kpi('Equity',fmtUSD(eq),dayChg,'', 'var(--blue)'),
+    kpi('Cash',fmtUSD(acct.cash),'available','', 'var(--cyan)'),
+    kpi('Buying Power',fmtUSD(acct.buying_power),'incl. margin','', 'var(--purple)'),
+    kpi('Realized P&L',rpnl?signed(rpnl):'$0.00',`${perf.closed_trades||0} closed`,rpnl>0?'pos':(rpnl<0?'neg':''),rpnl>=0?'var(--green)':'var(--red)'),
+    kpi('Win Rate',perf.win_rate!=null?pct(perf.win_rate):'—',`${perf.wins||0}W · ${perf.losses||0}L`,'', 'var(--yellow)'),
+  ].join('');
+
+  // equity chart
+  drawEquity(d.equity_history);
+
+  // positions
+  const pos=d.positions||[];
+  $('pos-tag').textContent=pos.length?`${pos.length} held`:'';
+  $('positions').innerHTML=pos.length?`<table><thead><tr>
+    <th>Symbol</th><th>Qty</th><th>Entry</th><th>Last</th><th>Mkt Value</th><th>Unreal P&L</th></tr></thead><tbody>`+
+    pos.map(p=>{const u=Number(p.unrealized_pl);const cls=u>0?'pos':(u<0?'neg':'');
+      return `<tr><td class="sym">${esc(p.symbol)}</td><td>${p.qty}</td>
+      <td>${fmtUSD2(p.avg_entry_price)}</td><td>${fmtUSD2(p.current_price)}</td>
+      <td>${fmtUSD2(p.market_value)}</td><td class="${cls}">${isNaN(u)?'—':signed(u)} <span style="color:var(--text-faint)">${p.unrealized_plpc!=null?'('+(Number(p.unrealized_plpc)*100).toFixed(1)+'%)':''}</span></td></tr>`;
+    }).join('')+`</tbody></table>`
+    :`<div class="empty">No open positions — flat and waiting for a thesis.</div>`;
+
+  // closed trades
+  const tr=(d.closed_trades_detail||[]).slice().reverse();
+  $('trades-tag').textContent=tr.length?`${perf.closed_trades} total`:'';
+  $('trades').innerHTML=tr.length?`<table><thead><tr>
+    <th>Symbol</th><th>Qty</th><th>Entry</th><th>Exit</th><th>P&L</th><th>When</th></tr></thead><tbody>`+
+    tr.map(t=>{const cls=t.pnl>0?'pos':(t.pnl<0?'neg':'');
+      return `<tr><td class="sym">${esc(t.symbol)}</td><td>${t.qty}</td>
+      <td>${fmtUSD2(t.entry)}</td><td>${fmtUSD2(t.exit)}</td>
+      <td class="${cls}">${signed(t.pnl)}</td><td style="color:var(--text-faint)">${shortTime(t.ts)}</td></tr>`;
+    }).join('')+`</tbody></table>`
+    :`<div class="empty">No closed trades yet. Averages and win rate appear once trades complete.</div>`;
+
+  // journal feed
+  const J=(d.recent_journal||[]).slice().reverse();
+  $('feed').innerHTML=J.length?J.map(e=>{
+    const cat=e.type==='order'?'order':e.type==='close'?'close':(e.category||e.type||'note');
+    let body='',meta='';
+    if(e.type==='order'){body=`<strong>${esc(e.side?.toUpperCase())} ${esc(e.symbol)}</strong> — ${esc(e.thesis||'')}`;
+      meta=`${esc(e.reason||'')} · risk ${esc(e.risk_level||'?')}${e.fill_price?` · fill ${fmtUSD2(e.fill_price)}×${e.filled_qty}`:` · ${esc(e.status||'')}`}`;}
+    else if(e.type==='close'){body=`<strong>CLOSE ${esc(e.symbol)}</strong> — ${esc(e.reason||'')}`;
+      meta=`exit ${fmtUSD2(e.fill_price)} · lesson: ${esc(e.lesson||'')}`;}
+    else{body=esc(e.text||'');}
+    return `<div class="ev"><div class="when">${ago(e.ts)}</div><div>
+      <span class="badge b-${cat}">${cat}</span><div class="body">${body}</div>${meta?`<div class="meta">${meta}</div>`:''}</div></div>`;
+  }).join(''):`<div class="empty">No journal entries yet. The first thesis is logged at the next morning session.</div>`;
+
+  // strategy
+  $('strategy').textContent=d.strategy||'No strategy document yet.';
+  const sm=(d.strategy||'').match(/v(\d+)/i);if(sm)$('strat-tag').textContent=sm[0];
+
+  // sessions
+  const ss=d.latest_sessions||[];
+  $('sessions').innerHTML=ss.length?ss.map(s=>
+    `<details class="sess"><summary>${esc(s.file)}</summary><pre>${esc(s.excerpt)}</pre></details>`).join('')
+    :`<div class="empty">No sessions recorded yet.</div>`;
+}
+
+function drawEquity(h){
+  const svg=$('equity-svg');
+  if(!h||!h.equity||h.equity.length<2){
+    svg.innerHTML=`<text x="300" y="90" fill="#475569" font-size="13" text-anchor="middle" font-family="system-ui">Equity curve appears after the first full trading day</text>`;
+    $('eq-start').textContent='';$('eq-end').textContent='';return;
+  }
+  const vals=h.equity.map(Number).filter(v=>!isNaN(v));
+  const W=600,H=170,pad=10;
+  const min=Math.min(...vals),max=Math.max(...vals),span=(max-min)||1;
+  const x=i=>pad+i*(W-2*pad)/(vals.length-1);
+  const y=v=>H-pad-((v-min)/span)*(H-2*pad);
+  const up=vals[vals.length-1]>=vals[0];
+  const stroke=up?'#34d399':'#f87171';
+  const line=vals.map((v,i)=>`${i?'L':'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const area=`${line} L${x(vals.length-1).toFixed(1)},${H-pad} L${pad},${H-pad} Z`;
+  svg.innerHTML=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="${stroke}" stop-opacity="0.28"/>
+    <stop offset="1" stop-color="${stroke}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#g)"/><path d="${line}" fill="none" stroke="${stroke}" stroke-width="2.2" stroke-linejoin="round"/>
+    <circle cx="${x(vals.length-1).toFixed(1)}" cy="${y(vals[vals.length-1]).toFixed(1)}" r="3.5" fill="${stroke}"/>`;
+  $('eq-start').textContent=fmtUSD(vals[0]);
+  $('eq-end').textContent=fmtUSD(vals[vals.length-1])+(up?' ▲':' ▼');
+  $('equity-tag').textContent=vals.length+' days';
+}
+
+async function load(){
+  try{
+    const r=await fetch('./data.json?_='+Date.now());
+    if(!r.ok)throw new Error(r.status);
+    render(await r.json());
+  }catch(e){
+    $('hero-sub').textContent='Waiting for the first published snapshot (data.json). The dashboard fills in after Hermes runs its first session.';
+    $('hero-sub').classList.remove('skel');
+  }
+}
+load();
+setInterval(load,120000); // refresh every 2 min
+</script>
+</body>
+</html>

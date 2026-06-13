@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-06-13T03:45:26.159613+00:00",
+  "model": "claude-opus-4-8",
+  "day_index": 0,
+  "total_days": 10,
+  "report_done": false,
+  "account": {
+    "account_number": "PA3DXDH05DYM",
+    "equity": "100486.67",
+    "cash": "100486.67",
+    "buying_power": "401946.68",
+    "portfolio_value": "100486.67"
+  },
+  "market_open": false,
+  "next_open": "2026-06-15T09:30:00-04:00",
+  "positions": [],
+  "performance": {
+    "closed_trades": 0,
+    "wins": 0,
+    "losses": 0,
+    "win_rate": null,
+    "total_realized_pnl": 0,
+    "avg_gain": null,
+    "avg_loss": null
+  },
+  "closed_trades_detail": [],
+  "equity_history": {
+    "timestamps": [
+      1780358400,
+      1780444800,
+      1780531200,
+      1780617600,
+      1780704000,
+      1780963200,
+      1781049600,
+      1781136000,
+      1781222400
+    ],
+    "equity": [
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67,
+      100486.67
+    ],
+    "profit_loss_pct": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "recent_journal": [],
+  "strategy": "# Hermes Trading Strategy \u2014 v0 (Day 1 baseline)\n\nNo refined strategy yet. Baseline rules:\n- Trade liquid US large/mid caps and sector ETFs only.\n- Long-only until a thesis clearly justifies otherwise.\n- Every trade needs a written thesis, a risk level, and an exit idea.\n- Prefer 2-5 small positions over 1 large one. Preserve capital.\n\nUpdate this document at every end-of-day review with concrete, testable rules.\n",
+  "latest_sessions": []
+}
