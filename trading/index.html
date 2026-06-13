@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Trading Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0a0e17;--card:#141b2d;--border:#252e44;--fg:#e6edf3;--muted:#8b95a7;--green:#26d07c;--red:#ff5c5c;--accent:#5b8def}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font:14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh}
+.gate{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;gap:16px}
+.gate input{background:var(--card);border:1px solid var(--border);color:var(--fg);padding:12px 16px;border-radius:8px;font:14px monospace;width:280px}
+.gate button{background:var(--accent);border:none;color:white;padding:12px 24px;border-radius:8px;cursor:pointer;font:600 14px sans-serif}
+.gate .err{color:var(--red);font-size:12px;margin-top:8px}
+.dash{padding:24px;max-width:1400px;margin:0 auto;display:none}
+header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+h1{font-size:20px;font-weight:600}
+.updated{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.card .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.card .value{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.green{color:var(--green)} .red{color:var(--red)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.section h2{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--border)}
+td{padding:8px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:none}
+.pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.pill.b{background:rgba(91,141,239,.15);color:var(--accent)}
+.pill.s{background:rgba(38,208,124,.15);color:var(--green)}
+.chartwrap{height:240px;position:relative}
+.tabs{display:flex;gap:4px;margin-bottom:16px}
+.tabs button{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 14px;border-radius:6px;cursor:pointer;font:600 12px sans-serif;text-transform:uppercase;letter-spacing:.5px}
+.tabs button.active{background:var(--accent);color:white;border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <input id="pw" type="password" placeholder="Password" autofocus>
+  <button onclick="unlock()">Unlock</button>
+  <div class="err" id="err"></div>
+</div>
+<div class="dash" id="dash"></div>
+<script>
+async function unlock(){
+  const pw=document.getElementById('pw').value;
+  const err=document.getElementById('err');
+  err.textContent='Decrypting...';
+  try{
+    const r=await fetch('data.json?t='+Date.now());
+    if(!r.ok)throw new Error('No data file');
+    const e=await r.json();
+    const b=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+    const baseKey=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+    const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b(e.salt),iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['decrypt']);
+    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(e.iv)},key,b(e.ct));
+    const data=JSON.parse(new TextDecoder().decode(pt));
+    document.getElementById('gate').style.display='none';
+    document.getElementById('dash').style.display='block';
+    render(data);
+  }catch(ex){err.textContent='Wrong password or no data yet'}
+}
+function fmt$(n){return '$'+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmt%(n){const s=Number(n)>=0?'+':'';return s+Number(n).toFixed(2)+'%'}
+function cls(n){return Number(n)>=0?'green':'red'}
+function render(d){
+  const dash=document.getElementById('dash');
+  const acc=d.accounts;
+  const ts=new Date(d.updated*1000).toLocaleString();
+  dash.innerHTML=`
+    <header>
+      <h1>Trading Dashboard</h1>
+      <div class="updated">Updated ${ts}</div>
+    </header>
+    <div class="tabs">
+      ${acc.map((a,i)=>`<button class="${i===0?'active':''}" onclick="show(${i})">${a.label}</button>`).join('')}
+    </div>
+    <div id="strategies"></div>
+  `;
+  window._data=d;
+  show(0);
+}
+function show(idx){
+  document.querySelectorAll('.tabs button').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  const a=window._data.accounts[idx];
+  const dd=(a.equity-a.initial)/a.initial*100;
+  const today=a.today_pl;
+  document.getElementById('strategies').innerHTML=`
+    <div class="grid">
+      <div class="card"><div class="label">Equity</div><div class="value">${fmt$(a.equity)}</div></div>
+      <div class="card"><div class="label">Total P&L</div><div class="value ${cls(a.equity-a.initial)}">${fmt$(a.equity-a.initial)} <span style="font-size:13px">${fmt%(dd)}</span></div></div>
+      <div class="card"><div class="label">Today</div><div class="value ${cls(today)}">${today>=0?'+':''}${fmt$(today).replace('$','')}</div></div>
+      <div class="card"><div class="label">Win Rate</div><div class="value">${a.win_rate.toFixed(0)}%</div></div>
+      <div class="card"><div class="label">PDT</div><div class="value">${a.pdt}/3</div></div>
+      <div class="card"><div class="label">Cash</div><div class="value">${fmt$(a.cash)}</div></div>
+    </div>
+    <div class="section">
+      <h2>Equity Curve</h2>
+      <div class="chartwrap"><canvas id="ec"></canvas></div>
+    </div>
+    <div class="section">
+      <h2>Open Positions (${a.positions.length})</h2>
+      ${a.positions.length?`<table><tr><th>Symbol</th><th>Qty</th><th>Entry</th><th>Current</th><th>P&L%</th></tr>${a.positions.map(p=>`<tr><td><b>${p.symbol}</b></td><td>${p.qty}</td><td>${fmt$(p.entry)}</td><td>${fmt$(p.current)}</td><td class="${cls(p.pnl_pct)}">${fmt%(p.pnl_pct)}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
+    </div>
+    <div class="section">
+      <h2>Recent Trades (${a.trades.length})</h2>
+      ${a.trades.length?`<table><tr><th>Time</th><th>Side</th><th>Symbol</th><th>Qty</th><th>Price</th><th>P&L%</th></tr>${a.trades.map(t=>`<tr><td>${t.time}</td><td><span class="pill ${t.side==='BUY'?'b':'s'}">${t.side}</span></td><td><b>${t.symbol}</b></td><td>${t.qty}</td><td>${fmt$(t.price)}</td><td class="${t.pnl_pct!=null?cls(t.pnl_pct):''}">${t.pnl_pct!=null?fmt%(t.pnl_pct):'—'}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
+    </div>
+  `;
+  if(a.equity_curve&&a.equity_curve.length){
+    new Chart(document.getElementById('ec'),{type:'line',data:{labels:a.equity_curve.map(p=>p.date),datasets:[{data:a.equity_curve.map(p=>p.equity),borderColor:'#5b8def',backgroundColor:'rgba(91,141,239,.1)',fill:true,tension:.3,pointRadius:0,borderWidth:2}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:'#8b95a7'},grid:{display:false}},y:{ticks:{color:'#8b95a7',callback:v=>'$'+v.toLocaleString()},grid:{color:'rgba(255,255,255,.05)'}}},maintainAspectRatio:false}});
+  }
+}
+document.getElementById('pw').addEventListener('keypress',e=>e.key==='Enter'&&unlock());
+</script>
+</body>
+</html>
