@@ -65,7 +65,7 @@ async function unlock(){
   }catch(ex){err.textContent='Wrong password or no data yet'}
 }
 function fmt$(n){return '$'+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
-function fmt%(n){const s=Number(n)>=0?'+':'';return s+Number(n).toFixed(2)+'%'}
+function fmtPct(n){const s=Number(n)>=0?'+':'';return s+Number(n).toFixed(2)+'%'}
 function cls(n){return Number(n)>=0?'green':'red'}
 function render(d){
   const dash=document.getElementById('dash');
@@ -92,7 +92,7 @@ function show(idx){
   document.getElementById('strategies').innerHTML=`
     <div class="grid">
       <div class="card"><div class="label">Equity</div><div class="value">${fmt$(a.equity)}</div></div>
-      <div class="card"><div class="label">Total P&L</div><div class="value ${cls(a.equity-a.initial)}">${fmt$(a.equity-a.initial)} <span style="font-size:13px">${fmt%(dd)}</span></div></div>
+      <div class="card"><div class="label">Total P&L</div><div class="value ${cls(a.equity-a.initial)}">${fmt$(a.equity-a.initial)} <span style="font-size:13px">${fmtPct(dd)}</span></div></div>
       <div class="card"><div class="label">Today</div><div class="value ${cls(today)}">${today>=0?'+':''}${fmt$(today).replace('$','')}</div></div>
       <div class="card"><div class="label">Win Rate</div><div class="value">${a.win_rate.toFixed(0)}%</div></div>
       <div class="card"><div class="label">PDT</div><div class="value">${a.pdt}/3</div></div>
@@ -104,11 +104,11 @@ function show(idx){
     </div>
     <div class="section">
       <h2>Open Positions (${a.positions.length})</h2>
-      ${a.positions.length?`<table><tr><th>Symbol</th><th>Qty</th><th>Entry</th><th>Current</th><th>P&L%</th></tr>${a.positions.map(p=>`<tr><td><b>${p.symbol}</b></td><td>${p.qty}</td><td>${fmt$(p.entry)}</td><td>${fmt$(p.current)}</td><td class="${cls(p.pnl_pct)}">${fmt%(p.pnl_pct)}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
+      ${a.positions.length?`<table><tr><th>Symbol</th><th>Qty</th><th>Entry</th><th>Current</th><th>P&L%</th></tr>${a.positions.map(p=>`<tr><td><b>${p.symbol}</b></td><td>${p.qty}</td><td>${fmt$(p.entry)}</td><td>${fmt$(p.current)}</td><td class="${cls(p.pnl_pct)}">${fmtPct(p.pnl_pct)}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
     </div>
     <div class="section">
       <h2>Recent Trades (${a.trades.length})</h2>
-      ${a.trades.length?`<table><tr><th>Time</th><th>Side</th><th>Symbol</th><th>Qty</th><th>Price</th><th>P&L%</th></tr>${a.trades.map(t=>`<tr><td>${t.time}</td><td><span class="pill ${t.side==='BUY'?'b':'s'}">${t.side}</span></td><td><b>${t.symbol}</b></td><td>${t.qty}</td><td>${fmt$(t.price)}</td><td class="${t.pnl_pct!=null?cls(t.pnl_pct):''}">${t.pnl_pct!=null?fmt%(t.pnl_pct):'—'}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
+      ${a.trades.length?`<table><tr><th>Time</th><th>Side</th><th>Symbol</th><th>Qty</th><th>Price</th><th>P&L%</th></tr>${a.trades.map(t=>`<tr><td>${t.time}</td><td><span class="pill ${t.side==='BUY'?'b':'s'}">${t.side}</span></td><td><b>${t.symbol}</b></td><td>${t.qty}</td><td>${fmt$(t.price)}</td><td class="${t.pnl_pct!=null?cls(t.pnl_pct):''}">${t.pnl_pct!=null?fmtPct(t.pnl_pct):'—'}</td></tr>`).join('')}</table>`:'<div style="color:var(--muted);font-size:13px">None</div>'}
     </div>
   `;
   if(a.equity_curve&&a.equity_curve.length){
