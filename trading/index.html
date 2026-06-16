@@ -59,10 +59,11 @@ async function unlock(){
     const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b(e.salt),iterations:100000,hash:'SHA-256'},baseKey,{name:'AES-GCM',length:256},false,['decrypt']);
     const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b(e.iv)},key,b(e.ct));
     const data=JSON.parse(new TextDecoder().decode(pt));
+    localStorage.setItem('tdpw',pw);
     document.getElementById('gate').style.display='none';
     document.getElementById('dash').style.display='block';
     render(data);
-  }catch(ex){err.textContent='Wrong password or no data yet'}
+  }catch(ex){localStorage.removeItem('tdpw');err.textContent='Wrong password or no data yet'}
 }
 function fmt$(n){return '$'+Number(n).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
 function fmtPct(n){const s=Number(n)>=0?'+':'';return s+Number(n).toFixed(2)+'%'}
@@ -74,7 +75,7 @@ function render(d){
   dash.innerHTML=`
     <header>
       <h1>Trading Dashboard</h1>
-      <div class="updated">Updated ${ts}</div>
+      <div style="display:flex;align-items:center;gap:12px"><div class="updated">Updated ${ts}</div><button onclick="forget()" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;padding:0;text-decoration:underline">forget device</button></div>
     </header>
     <div class="tabs">
       ${acc.map((a,i)=>`<button class="${i===0?'active':''}" onclick="show(${i})">${a.label}</button>`).join('')}
@@ -116,6 +117,8 @@ function show(idx){
   }
 }
 document.getElementById('pw').addEventListener('keypress',e=>e.key==='Enter'&&unlock());
+function forget(){localStorage.removeItem('tdpw');location.reload();}
+window.addEventListener('load',()=>{const s=localStorage.getItem('tdpw');if(s){document.getElementById('pw').value=s;unlock();}});
 </script>
 </body>
 </html>
