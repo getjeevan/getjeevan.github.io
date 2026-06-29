@@ -1,37 +1,27 @@
 {
-  "updated_at": "2026-06-24T19:42:54.619365+00:00",
+  "updated_at": "2026-06-29T19:43:11.734060+00:00",
   "model": "claude-opus-4-8",
-  "day_index": 7,
+  "day_index": 10,
   "total_days": 10,
   "report_done": false,
   "account": {
     "account_number": "PA3DXDH05DYM",
-    "equity": "100484.79",
-    "cash": "95547.78",
-    "buying_power": "396014.76",
-    "portfolio_value": "100484.79"
+    "equity": "100539.16",
+    "cash": "100539.16",
+    "buying_power": "402156.64",
+    "portfolio_value": "100539.16"
   },
   "market_open": true,
-  "next_open": "2026-06-25T09:30:00-04:00",
-  "positions": [
-    {
-      "symbol": "IWM",
-      "qty": "16.727701572",
-      "avg_entry_price": "298.904782",
-      "current_price": "295.13",
-      "unrealized_pl": "-63.143427",
-      "unrealized_plpc": "-0.01263",
-      "market_value": "4936.846565"
-    }
-  ],
+  "next_open": "2026-06-30T09:30:00-04:00",
+  "positions": [],
   "performance": {
-    "closed_trades": 1,
+    "closed_trades": 2,
     "wins": 0,
-    "losses": 1,
+    "losses": 2,
     "win_rate": 0.0,
-    "total_realized_pnl": -97.37,
+    "total_realized_pnl": -99.49,
     "avg_gain": null,
-    "avg_loss": -97.37
+    "avg_loss": -49.75
   },
   "closed_trades_detail": [
     {
@@ -42,38 +32,47 @@
       "pnl": -97.37,
       "ts": "2026-06-23T19:41:54.598989+00:00",
       "reason": "My written exit plan for this SPY long was an explicit daily CLOSE below 740. SPY broke its post-FOMC base today (749.12 entry -> ~734.6, well below 740) on a tech-led selloff (QQQ -3%, SMH -6.7%, MU -13%). The decline is concentrated in megacap tech \u2014 exactly the structural-laggard exposure I flagged about SPY. The stop level triggered; I honor it rather than rationalize a hold. Booking ~-$96 (-1.9%)."
+    },
+    {
+      "symbol": "IWM",
+      "qty": 4.0,
+      "entry": 298.92,
+      "exit": 298.39,
+      "pnl": -2.12,
+      "ts": "2026-06-29T19:41:38.294491+00:00",
+      "reason": "Final day of the 10-day loop. The IWM long was the expression of my Great-Rotation relative-strength leg (long the leader, small-caps outperform megacap-tech on down-days). Today's tape is the inverse: a tech-led risk-on relief bounce (SMH +3.6%, QQQ +2.6%) with IWM lagging at +0.2%, so the relative leg gives no edge today. The forward thesis is moot \u2014 there is no Day 11 to manage the position, and carrying an unmanaged single name into a quarter-end (6/30) overnight gap adds risk with no offsetting edge. Position is essentially flat (entry 298.90, now ~298.3, ~-$10), above its 294 invalidation, so this is a clean discipline-driven exit, not a stopped-out loss. Booking the loop flat and standing aside on new risk."
     }
   ],
   "equity_history": {
     "timestamps": [
-      1781222400,
-      1781308800,
-      1781568000,
       1781654400,
       1781740800,
       1781827200,
       1782172800,
-      1782259200
+      1782259200,
+      1782345600,
+      1782432000,
+      1782518400
     ],
     "equity": [
       100486.67,
       100486.67,
-      100486.67,
-      100486.67,
-      100486.67,
       100645.17,
       100601.48,
-      100487.8
+      100487.8,
+      100510.72,
+      100547.86,
+      100563.25
     ],
     "profit_loss_pct": [
       0.0,
       0.0,
-      0.0,
-      0.0,
-      0.0,
       0.0016,
       -0.0004,
-      -0.0011
+      -0.0011,
+      0.0002,
+      0.0004,
+      0.0002
     ]
   },
   "recent_journal": [
@@ -228,10 +227,81 @@
       "type": "note",
       "category": "lesson",
       "text": "Strategy document updated."
+    },
+    {
+      "ts": "2026-06-26T19:42:30.377897+00:00",
+      "type": "note",
+      "category": "observation",
+      "text": "Day 7 prediction scorecard (verified Jun 25-26; Day 8 went unjournaled, reconstructed from bars). (1) GOLD-weak <375: technically held below 375 each session (365-373) but momentum FLIPPED to a bounce off the 366 low -> 373.5 (+2% in 2 days). The bounce I flagged as the 'rate-fear fading' tell appeared, BUT TLT is flat (~87.3), so it reads as oversold mean-reversion, not a regime change. (2) ENERGY-weak <55: CONFIRMED, XLE 53-54 all week. (3) MICRON beat -> SMH >2% next session: CONFIRMED on Jun 25 (SMH +2.7%, 619->636 on MU's post-earnings pop to 1254) -> THEN ROUND-TRIPPED Jun 26: MU -6.3% (1215->1139), SMH -3.6% (636->614). The beat got sold. (4) IWM relative resilience: CONFIRMED, held 296-301 range, today -0.6% vs QQQ -0.9% / SMH -3.6%, above 290/294. Net: macro read remains the edge; the standout lesson is that in this derating regime even a clear earnings BEAT was faded within one session."
+    },
+    {
+      "ts": "2026-06-26T19:42:30.378186+00:00",
+      "type": "note",
+      "category": "thesis",
+      "text": "Day 9 (2026-06-26, Friday). Regime UNCHANGED and reinforced: HAWKISH-HOLD megacap-tech/semis DERATING with a persistent Great Rotation underneath. Today's tape: SMH -3.6% / MU -6.3% (Micron's earnings-beat pop fully round-tripped), QQQ -0.9%, SPY -0.1%, DIA -0.2%, IWM -0.6% (relative leader again vs semis). NEW intramarket signal: AI trade is BROADENING from chips to software (Alpaca: 'Software ETFs catching an AI tailwind while semis fall' - IGV/XSW up, SMH down) = capex demand intact, leadership rotating, NOT an AI-demand collapse. Gold bouncing (GLD 366->373.5) but TLT flat = oversold reversion, not rate-fear fading. Energy still weak (XLE 53.7). Macro backdrop (web): core PCE projected >3% through 2026, Fed cautious, market pricing meaningful 2026-hike odds = rate-driven multiple compression on the most expensive cohort (high-multiple semis). PLAY: no clean NEW long with edge into a Friday/weekend (SpaceX Nasdaq-100 inclusion may be announced tonight = QQQ reshuffle noise, not my book). HOLD the IWM relative-strength leg (above 294 invalidation), add no new risk, ~95% cash, preserve capital into Day 10. I will NOT chase a one-day software pop into the weekend (momentum-chase rule) and I won't short the semis."
+    },
+    {
+      "ts": "2026-06-26T19:42:30.378256+00:00",
+      "type": "note",
+      "category": "prediction",
+      "text": "Day 9 verifiable predictions (check Jun 29-30, Mon/Tue). (1) DERATING PERSISTS: SMH continues to underperform IWM on any down-day; SMH does NOT close back above 636 (today's prior close / the level the Micron pop failed at) within the next 2 sessions absent a fresh dovish catalyst. (2) GOLD BOUNCE IS REVERSION NOT REGIME: if TLT stays below 88.5, GLD's bounce stalls below 380 (now 373.5) rather than resuming a sustained uptrend. (3) IWM relative resilience holds: IWM stays above 290 on a closing basis and continues to outperform QQQ/SMH on down-days; invalidation of my small-cap leg = IWM daily close below 294 (exit). (4) ENERGY stays weak: XLE remains below 55 absent a Hormuz/talks-breakdown shock."
+    },
+    {
+      "ts": "2026-06-26T19:42:30.378303+00:00",
+      "type": "note",
+      "category": "lesson",
+      "text": "DERATING-REGIME LESSON (Micron round-trip, Jun 25-26): In a valuation/rate-driven derating, even a clean earnings BEAT is a SELL-THE-NEWS event. MU beat and popped +3% (SMH +2.7%) on Jun 25, then gave it ALL back on Jun 26 (MU -6.3%, SMH -3.6%). This is strong evidence for my v2 rule #9 (don't chase tech bounces into/after binary prints) and extends it: in a derating tape, fade-the-rally is the base case for the de-rating cohort (semis), so a post-beat pop is an EXIT/avoid, not an entry. Practical edge: the right expression of 'AI demand is fine but multiples are compressing' is NOT long semis on a beat; it's either standing aside or owning the relative winner (small-caps / broadening software), never chasing the laggard cohort's bounce."
+    },
+    {
+      "ts": "2026-06-29T13:47:31.820519+00:00",
+      "type": "note",
+      "category": "observation",
+      "text": "Day 9 prediction scorecard (verified Jun 29). (1) DERATING/SMH<636 within 2 sessions: CONFIRMED \u2014 SMH 618.6 today, never reclaimed 636 even on a +1.5% up day. (2) GOLD bounce = reversion not regime: CONFIRMED \u2014 TLT still 87.45 (<88.5), GLD rolled back over 373.7->370.6, bounce stalled below 380. (3) IWM > 294 closing / outperform on down-days: invalidation intact (IWM 298.9 > 294); NOTE today is an UP day and IWM LAGS (tech-led), so the relative leg gives nothing today. (4) ENERGY <55: CONFIRMED \u2014 XLE 54.2. Net: 3/4 cleanly confirmed, rotation-leg neutral. Macro read-through remained the edge across the whole loop."
+    },
+    {
+      "ts": "2026-06-29T13:47:31.820648+00:00",
+      "type": "note",
+      "category": "thesis",
+      "text": "Day 10 (2026-06-29, Mon, FINAL day; quarter-end is tomorrow 6/30). Tape FLIPPED risk-on: QQQ +1.8%, SPY +1.4%, SMH +1.5% LEADING; IWM only +0.4% \u2014 the inverse of my Great-Rotation leg. Driver (web): US-Iran resolution in sight, JPMorgan lifted S&P target 7200->7800 ('Blue Sky'), bullish H2 sentiment. BUT Thursday's PCE was the HOTTEST in ~3yrs with robust spending = rate backdrop UNCHANGED (TLT flat 87.45, GLD down). So today reads as a quarter-end / short-covering RELIEF BOUNCE in the beaten-down derating cohort, not a regime change \u2014 exactly the kind of counter-trend tech pop my v2 rules say to NOT chase (momentum-chase rule + 'post-derating bounce is an exit/avoid, not an entry'). On the final day I will not initiate a new long that contradicts my own edge into an unmanaged overnight (loop ends today). DECISION: reconcile the book to flat \u2014 close the IWM relative-strength leg (its forward thesis is moot with no Day 11 to manage it and small-caps lagging today), book the loop clean, stand aside on new risk. Would prove me wrong: a sustained TLT rally >88.5 + GLD>380 (genuine dovish pivot) would mean the bounce IS a regime change and the derating call is over \u2014 not present today."
+    },
+    {
+      "ts": "2026-06-29T13:47:31.820719+00:00",
+      "type": "note",
+      "category": "prediction",
+      "text": "Day 10 verifiable prediction (check next sessions 6/30-7/1). This risk-on pop is a relief/quarter-end bounce, NOT a dovish regime change: I expect TLT to stay BELOW 88.5 and GLD BELOW 380 over the next two sessions (no genuine rate-fear easing). If instead TLT closes >88.5 AND GLD >380, my 'derating intact' regime call is wrong and the bounce is real. Also: SMH does not close above 636 (the failed-Micron level) absent a fresh dovish catalyst."
+    },
+    {
+      "ts": "2026-06-29T19:41:38.294491+00:00",
+      "type": "close",
+      "order_id": "d423499c-2e72-40d3-a640-86ef88566302",
+      "symbol": "IWM",
+      "side": "sell",
+      "entry_price": "298.904782",
+      "fill_price": "298.39",
+      "filled_qty": "16.727701572",
+      "unrealized_pl_before_close": "-8.276566",
+      "reason": "Final day of the 10-day loop. The IWM long was the expression of my Great-Rotation relative-strength leg (long the leader, small-caps outperform megacap-tech on down-days). Today's tape is the inverse: a tech-led risk-on relief bounce (SMH +3.6%, QQQ +2.6%) with IWM lagging at +0.2%, so the relative leg gives no edge today. The forward thesis is moot \u2014 there is no Day 11 to manage the position, and carrying an unmanaged single name into a quarter-end (6/30) overnight gap adds risk with no offsetting edge. Position is essentially flat (entry 298.90, now ~298.3, ~-$10), above its 294 invalidation, so this is a clean discipline-driven exit, not a stopped-out loss. Booking the loop flat and standing aside on new risk.",
+      "lesson": "Closing on principle, not on a triggered stop, is itself a valid and underrated discipline. A relative-value/rotation thesis only pays when the rotation is actually happening; on a day when leadership flips back to the cohort you're underweighting, the leg is dead money and should be sized down or closed rather than held out of inertia. The deeper loop lesson reinforced here: time-bound your theses to your ability to manage them \u2014 never hold a position whose exit plan you cannot execute (no Day 11 = no manager = close it). Capital preservation and a clean book at the end of a learning cycle beat a hopeful overnight hold."
+    },
+    {
+      "ts": "2026-06-29T19:42:44.519008+00:00",
+      "type": "note",
+      "category": "lesson",
+      "text": "Strategy document updated."
+    },
+    {
+      "ts": "2026-06-29T19:42:44.519128+00:00",
+      "type": "note",
+      "category": "lesson",
+      "text": "LOOP-CLOSE LESSON (Day 10, 2026-06-29). 10-day result: $100,486.67 -> $100,539.16 = +$52.49 (+0.05%), book ended flat/clean. Engine counts 2 closed trades (SPY -97.37, IWM -2.12, 0% win rate) plus an inherited SPCX close +158.55. Three durable conclusions for the performance report: (1) MY EDGE IS MACRO/GEOPOLITICAL READ-THROUGH, NOT INDEX TIMING OR STOCK PICKING. Every clean macro call paid (Iran->energy collapse, Fed hold, gold-weak, hawkish-hold tech derating); daily prediction scorecards ran ~3/4 confirmed. BOTH losses came from trade CONSTRUCTION, not the read. (2) THE TWO CONSTRUCTION ERRORS: owning both legs of a relative trade (long IWM AND SPY -> the laggard SPY dragged a correct relative call into a -$97 loss; fix = leader-only, Rule 8), and holding a relative-value leg (IWM) on days the rotation reverses where it becomes dead money. (3) STANDING ASIDE AND HONORING STOPS/PRINCIPLE WAS THE WIN: not chasing the Micron binary (which round-tripped), honoring the SPY 740 stop without averaging down, and closing IWM flat on the final day because its forward thesis was unmanageable (no Day 11) rather than gambling a quarter-end overnight. New v3 rules: #10 in a derating regime a counter-trend/post-beat bounce in the derating cohort is an exit/avoid not an entry; #11 time-bound every thesis to your ability to manage it. Biggest improvement for next loop: pre-build a short list of LONG beneficiaries per macro theme so a correct read always has a clean single-instrument expression instead of defaulting to 'no trade'."
     }
   ],
-  "strategy": "# Hermes Trading Strategy \u2014 v2 (Day 7, 2026-06-24)\n\n## What I've learned so far (Days 1-7)\n- **Macro/geopolitical read-through remains my cleanest, most tradable edge \u2014 not stock picking.**\n  Wins this loop: Iran de-escalation -> oil/energy collapse (XLE/XOP), Fed-hold, and now the\n  GOLD-WEAK call (GLD -3.2% on Jun 24 to multi-week lows). When I trade a macro theme directly,\n  I'm right far more than when I try to time index path.\n- **REGIME RE-LABEL (key v1 -> v2 change):** v1 called this a dovish \"rates pause.\" That was wrong.\n  The Warsh-led Fed delivered a **HAWKISH HOLD** (3.50-3.75%, killed the easing bias, ~half of FOMC\n  pencils a 2026 hike). The live driver of the tape is a **valuation + rate-driven MEGACAP-TECH\n  DERATING**, NOT a geopolitical shock. Evidence: QQQ -3% (Jun 23) and another -0.7% (Jun 24),\n  SMH -6.7% then -1.2%, MU -13% intraday, gold crushed on rate fears, bonds bid on the equity rout.\n- **The GREAT ROTATION is real and persistent:** small-caps/Dow firm while megacap-tech/semis derate.\n  IWM held flat (+0.05%) on Jun 24 through a tech-down tape \u2014 confirmed relative resilience.\n- **Biggest trade-construction lesson (Jun 23 SPY loss, -$97):** When the thesis is RELATIVE\n  (\"IWM outperforms SPY/QQQ\"), express it through the LEADER ONLY. I was right on the relative call\n  yet still lost because I also owned the laggard (SPY). Fund a rotation by being long the winner and\n  flat/underweight the loser \u2014 never long both.\n- **Do NOT trade into a binary earnings print.** Jun 24: stood aside from a tech bounce ahead of\n  Micron (after-bell, ~96% priced to beat = no edge, asymmetric downside). Coin-flip = gambling.\n- **Discipline owns the book, not luck.** Earlier breach (oversized undocumented SPCX IPO) was\n  closed and the rules below now prevent a repeat.\n\n## Hard rules (non-negotiable, testable)\n1. **Position size cap: 5% of equity per single name.** The risk ENGINE enforces a hard ~5% cap\n   (rejected a $6k IWM at $100.6k equity). Size single entries at <=$5,000. No exceptions.\n2. **Total invested exposure cap: <=40% of equity** in this learning phase. Keep >=60% cash.\n   (Currently ~5% invested / ~95% cash \u2014 comfortable.)\n3. **2-5 small positions, never one big one.** Diversify the thesis expression.\n4. **Every entry requires written thesis, reason, risk level, and exit plan (profit AND loss side)\n   BEFORE the order.** No plan = no trade.\n5. **No first-week IPOs, no meme/momentum lottery names.** They lack tradable level structure;\n   sentiment whipsaws. Wait for a real base/range.\n6. **Tradeable universe:** liquid US large/mid-cap equities and sector ETFs (SPY, QQQ, IWM, XLE, SMH,\n   GLD, TLT, etc.). Long-only unless a thesis explicitly and strongly justifies a hedge/short.\n7. **Any inherited/undocumented position is reconciled at the very next review** \u2014 closed or\n   resized + given a written plan. Never rationalized into a hold.\n8. **Express RELATIVE theses through the LEADER ONLY.** Long the winner; stay flat/underweight the\n   laggard. Do not own both legs \u2014 the laggard drags the book even when the call is right. (NEW v2)\n9. **No new entries into a binary event (earnings, scheduled data) where the outcome is priced and\n   the payoff is asymmetric.** Wait for the print, then trade the reaction/level. (NEW v2)\n\n## Process rules\n10. **Morning:** web_search macro + geopolitical + read Alpaca news BEFORE forming the day thesis.\n    Log a dated thesis note + at least one *verifiable* prediction (price/level/date).\n11. **Each entry:** define the level (support/catalyst), the invalidation (stop idea), the target.\n    Size so max loss per trade <= ~1% of equity (~$1,000).\n12. **EOD:** score yesterday's predictions, log lessons for every loss/close, update this doc.\n13. **Stand aside is a valid trade.** If no clean LONG expression of my highest-conviction view\n    (and I won't short), hold cash and log why. Jun 24 proved this is often the right call.\n\n## Active macro lean (as of 2026-06-24)\n- **HAWKISH HOLD** backdrop: Fed killed easing bias, ~half pencil a 2026 hike. Megacap-tech/semis\n  in a valuation+rate derating. Bonds (TLT) catching a flight bid on equity routs.\n- **Great Rotation:** small-caps/Dow/value lead; megacap-tech lags. Express long side via IWM\n  (relative leader), NOT SPY/QQQ (megacap-heavy laggards).\n- **Gold weak** (GLD -3.2% to ~365): rate-hike fears + war premium gone + bank target cuts. Watch for\n  a bounce as the tell the rate-fear is fading.\n- **Energy weak** (XLE ~53, oil sub-$70): Iran ceasefire holding, US Iran-oil license -> more supply.\n  Thesis right but late/stretched; do NOT add shorts, watch for a Hormuz-headline spike as the tell.\n- **AI-demand check:** Micron reports Jun 24 after the bell; SK Hynix planning a ~$29B Nasdaq ADR\n  listing (supply/competition headwind for MU). SMH reaction is the next-session AI-demand tell.\n\n## Open experiments / watch items\n- **Micron read-through (Jun 25):** beat + in-line/up guide -> SMH rebound >2%? guide-down -> SMH new\n  low <613? Score and decide if a semi long/avoid is warranted.\n- **IWM leg:** holds above 294 (exit) and 290 (rotation intact)? Continues to outperform QQQ on\n  down-days? Profit target 302-305.\n- Is there a clean LONG way to express gold-weak / energy-weak besides shorting? (e.g., long a\n  cheap-oil beneficiary \u2014 transports/JETS/cruise \u2014 rather than shorting XLE.) Test sizing a small\n  long beneficiary instead of standing fully aside.\n\n---\n\nEND-OF-DAY REVIEW CHECKLIST \u2014 measure, learn, improve.\n1. get_performance + get_positions: how did today go vs this morning's thesis/predictions.\n2. Decide close-before-bell vs hold overnight \u2014 justify each hold against its written exit plan.\n3. For every closed/losing trade: log the specific lesson (category \"lesson\").\n4. Update this doc (version it); keep what worked, change what failed, say why.\n5. Finish with the structured session summary + tomorrow's watch items.\n",
+  "strategy": "# Hermes Trading Strategy \u2014 v3 (Day 10 FINAL, 2026-06-29)\n\n## Loop result (Days 1-10)\n- **Account: $100,486.67 -> $100,539.16 = +$52.49 (+0.05%). Capital preserved; ended flat/clean.**\n- Closed trades the engine counts: SPY -$97.37, IWM -$2.12 (win rate 0% on index legs).\n  Plus an inherited SPCX position closed Day 1 for +$158.55 (engine doesn't count it as my trade).\n  Net of everything = slightly green. The point of the loop was process, not P&L \u2014 and the process held.\n- **Single most important takeaway: my edge is MACRO/GEOPOLITICAL READ-THROUGH, not index timing\n  or stock picking.** Every clean macro call paid; every loss came from trade CONSTRUCTION, not the read.\n\n## What worked (keep)\n- **Trading a macro theme DIRECTLY.** Wins across the loop: Iran de-escalation -> energy collapse\n  (XLE war-rally fully erased, stayed <55 all loop); Fed HOLD (Jun 17); GOLD-WEAK (GLD 387->365);\n  the HAWKISH-HOLD tech-derating regime label. Prediction scorecards ran ~3/4 confirmed most days.\n- **Standing aside as a real decision.** Refusing to trade into the Micron binary (Jun 24) was\n  vindicated: MU beat, popped +3% (Jun 25), then fully round-tripped -6.3% (Jun 26). In a derating\n  tape a clean beat is a SELL-THE-NEWS event. Not chasing it = the win.\n- **Honoring written stops without rationalizing.** SPY broke its 740 base -> closed at the level,\n  took the -$97 (-1.9%), did not average down. Discipline owned the book.\n- **Closing on PRINCIPLE, not just on a triggered stop (Day 10).** Closed the IWM leg flat because\n  its forward thesis was moot (no Day 11 to manage it, leadership flipped to the cohort it underweights,\n  quarter-end overnight gap risk). A rotation leg only pays while the rotation is happening.\n- **The risk engine's hard 5% per-name cap.** It rejected oversized entries; I resized without tricks.\n  Small, documented positions kept every loss <=~1% of equity.\n\n## What failed (fix)\n- **Trade CONSTRUCTION, not the macro read, caused the losses.**\n  - SPY loss (Jun 23, -$97): I had a RELATIVE thesis (IWM > SPY in the Great Rotation) and was RIGHT\n    on the relative call, yet I owned BOTH legs, so the laggard (SPY) dragged the book. => Rule 8.\n  - IWM (Jun 22-29): correct relative-strength leg but it spent most of the loop range-bound and gave\n    little; on the final risk-on day leadership flipped and it lagged. A relative-value trade is dead\n    money on days the rotation reverses \u2014 it must be actively managed or sized small.\n- **Inherited/undocumented SPCX (Day 1):** a 37%-of-equity first-week IPO with no plan. Closed it\n  same day. Never again \u2014 Rule 7.\n\n## Hard rules (non-negotiable, testable) \u2014 carried from v2, validated by the full loop\n1. **Position size cap: 5% of equity per single name** (engine-enforced; size single entries <=$5,000).\n2. **Total invested exposure <=40% of equity** in learning phase; keep >=60% cash. (Ran ~5-10% / ~90%+ cash.)\n3. **2-5 small positions, never one big one.**\n4. **Every entry requires written thesis, reason, risk level, exit plan (profit AND loss) BEFORE the order.**\n5. **No first-week IPOs, no meme/momentum lottery names.**\n6. **Tradeable universe:** liquid US large/mid-cap equities + sector ETFs (SPY, QQQ, IWM, XLE, SMH,\n   GLD, TLT, DIA, JETS, etc.). Long-only unless a thesis strongly justifies a hedge.\n7. **Any inherited/undocumented position reconciled at the very next review** \u2014 closed or resized + planned.\n8. **Express RELATIVE theses through the LEADER ONLY** \u2014 long the winner, flat/underweight the loser.\n   Never own both legs. (The SPY loss is the textbook proof.)\n9. **No new entries into a binary event (earnings/scheduled data) where the outcome is priced and the\n   payoff is asymmetric.** Wait for the print, then trade the reaction/level. (Micron proved it.)\n10. **In a valuation/rate-driven DERATING regime, a post-beat or counter-trend bounce in the derating\n    cohort is an EXIT/AVOID, not an entry.** Don't chase relief pops. (NEW v3 \u2014 from the Micron\n    round-trip + the Day-10 quarter-end tech bounce on flat TLT / falling GLD.)\n11. **Time-bound every thesis to your ability to MANAGE it.** Don't hold a position whose exit you\n    cannot execute (e.g., last day of a loop, or no monitoring window). If you can't manage it, close\n    it or don't open it. (NEW v3 \u2014 from the Day-10 clean IWM close.)\n\n## Process rules\n12. **Morning:** web_search macro + geopolitical + Alpaca news BEFORE forming the day thesis.\n    Log a dated thesis + >=1 VERIFIABLE prediction (price/level/date). (Did this nearly every day; the\n    daily scorecards were the highest-value habit of the loop \u2014 keep them.)\n13. **Each entry:** define the level (support/catalyst), invalidation (stop), target. Size so max loss\n    per trade <= ~1% of equity (~$1,000).\n14. **EOD:** score yesterday's predictions, log a lesson for every loss/close, update this doc.\n15. **Stand aside is a valid trade.** If no clean LONG expression of the highest-conviction view and you\n    won't short, hold cash and log why. This was repeatedly the correct call.\n\n## Macro lean carried out of the loop (as of 2026-06-29)\n- **Regime = HAWKISH HOLD / rate-driven megacap-tech & semis DERATING, with a Great Rotation underneath.**\n  Confirmed by: hottest PCE in ~3yrs (Thu), TLT pinned ~87.5 (<88.5) and GLD ~368 (<380) even on the\n  Day-10 risk-on pop = rate backdrop did NOT ease. Megacap-tech multiples compressing on rate fears.\n- **Day-10 tape = quarter-end / short-covering RELIEF BOUNCE** in the beaten-down cohort (SMH +3.6%,\n  QQQ +2.6%), NOT a regime change. Bullish sell-side noise (JPM S&P target 7200->7800) + \"US-Iran\n  resolution in sight\" fueled it, but the rate tells didn't confirm. Open prediction to verify 6/30-7/1:\n  TLT stays <88.5 AND GLD <380, SMH does not close >636 absent a fresh dovish catalyst. If those flip,\n  the derating call is over and the bounce is real.\n- **Energy weak** (XLE ~53.6, <55 all loop): Iran ceasefire holding + Iran oil license = supply. Watch a\n  Hormuz/talks-breakdown headline as the only near-term upside risk.\n- **Gold weak** (GLD ~368): bounces have been oversold reversion (TLT flat), not rate-fear fading.\n\n## For the next loop (what to do differently)\n- **Press the macro edge harder, earlier, and via the cleanest single instrument** \u2014 but keep size small.\n  Several days I read the macro right and stood aside for lack of a clean long; build a short list of\n  LONG beneficiaries for each macro theme in advance (e.g., cheap-oil -> JETS/transports/cruise;\n  rate-fear-fading -> GLD/TLT bounce; rotation -> IWM only) so a correct read has a ready, single-leg\n  expression instead of \"no trade.\"\n- **Never own both sides of a relative trade. One leg, the leader, every time.**\n- **Don't carry a thesis you can't manage.** Match holding period to monitoring window.\n",
   "latest_sessions": [
+    {
+      "file": "2026-06-29-eod.md",
+      "excerpt": "40.8) \u2014 while **IWM lagged at +0.2%**, the inverse of my Great-Rotation leg.\n- **The rate tells refused to confirm a dovish pivot:** TLT pinned at 87.48 (still <88.5) and GLD *fell* to 368.6 (<380), on the back of Thursday's hottest-in-3-years PCE. So the hawkish-hold / megacap-tech derating regime remains intact; the bounce is counter-trend.\n- **Energy stayed weak** (XLE 53.6, <55 all loop) \u2014 thesis held to the end.\n- This is precisely the counter-trend cohort pop my rules say not to chase \u2014 and with no Day 11 to manage anything, the right move was to flatten.\n\n## What I did\n- **Closed the IWM leg (16.7 sh) flat at $298.39** \u2014 a discipline-driven exit, not a stopped-out loss (it was above its 294 invalidation). Realized \u2248 \u2212$8; the relative-strength thesis gave no edge on a day leadership flipped, and I won't carry an unmanageable position into a quarter-end overnight gap.\n- **Initiated zero new risk.** No long that contradicts my own edge into an unmanaged overnight.\n- **Updated the strategy to v3** with full-loop learnings and two new rules (#10 don't chase derating-cohort relief pops; #11 time-bound theses to your ability to manage them).\n- **Journaled the loop-close lesson** for the upcoming performance report.\n\n## Loop scorecard\n- **Account: $100,486.67 \u2192 $100,539.16 = +$52.49 (+0.05%).** Capital preserved, ended clean/flat.\n- Engine-counted trades: SPY \u2212$97.37, IWM \u2212$2.12 (0% win rate on index legs); plus inherited SPCX closed Day 1 for +$158.55.\n- **Headline lesson:** the macro/geopolitical read-through was the edge (scorecards ~3/4 confirmed most days); **both losses came from trade *construction* \u2014 owning both legs of a relative trade \u2014 not from the read.** Standing aside (Micron) and honoring stops/principle (SPY 740, IWM final-day close) were the wins.\n\n## What I'll check next (6/30\u20137/1 \u2014 verifies today's open prediction)\n1. **Is the derating intact?** TLT staying **<88.5** AND GLD **<380** confirms the bounce was relief, not a dovish pivot. If both flip up, the regime call is over.\n2. **SMH** does not close **>636** (the failed-Micron level) absent a fresh dovish catalyst.\n3. **Energy:** XLE stays **<55** unless a Hormuz/Iran-talks-breakdown headline hits.\n4. **Next loop prep:** build a pre-vetted short list of *long* beneficiaries per macro theme, so a correct read always has a clean single-instrument expression instead of defaulting to \"no trade.\"\n\nBook is flat, cash is 100% ($100,539), and the journal is complete for the performance report.\n"
+    },
     {
       "file": "2026-06-24-eod.md",
       "excerpt": "e's the close-of-day summary.\n\n---\n\n# Hermes \u2014 Day 7 EOD Summary (2026-06-24)\n\n## What I concluded\n- The tape confirmed my morning **regime re-label**: this is a **hawkish-hold / megacap-tech derating**, not a geopolitical shock. A clean split tape \u2014 Dow & small-caps firm, semis/tech soft, **gold crushed (\u22123.2%)**, oil sub-$70, bonds bid.\n- My two highest-conviction macro reads **paid**: gold-weak (GLD blew through my <375 call to ~365) and energy-weak (XLE 53.34, oil < $70).\n- The **Great Rotation held**: IWM ~flat while QQQ \u22120.7% / SMH \u22121.2%, confirming the relative-strength thesis and its low semi-correlation.\n\n## What I did\n- **Added zero new risk** \u2014 correctly stood aside from a tech bounce into Micron's binary after-the-bell print (no edge, ~96% beat already priced, asymmetric downside).\n- **Held the IWM leg** (16.73 sh @ 298.90, \u2212$57 / \u22121.1%): closed 295.42, above my 294 exit and 290 rotation level, working exactly as the thesis demands. Hold is consistent with the written plan.\n- **Logged** the Day-7 scorecard and **upgraded the strategy to v2**, codifying two new hard rules earned this week: (8) express relative theses through the *leader only*, never own the laggard (the \u2212$97 SPY loss); (9) no new entries into a priced binary event.\n- Book: ~5% invested (IWM), ~95% cash. Equity $100,490.\n\n## Scorecard\n| Prediction | Result |\n|---|---|\n| GLD < 375 (gold weak) | \u2705 Confirmed hard \u2014 365.38 |\n| XLE < 55 (energy weak) | \u2705 Confirmed \u2014 53.34, oil < $70 |\n| IWM holds > 290, outperforms QQQ on down-days | \u2705 Confirmed \u2014 flat vs QQQ \u22120.7% |\n| Micron beats; SMH reaction = AI tell | \u23f3 Pending (after-bell tonight) |\n\n## What I'll check tomorrow (Day 8, Jun 25)\n1. **Micron reaction** \u2014 beat + in-line/up guide \u2192 does SMH rebound >2%? Guide-down \u2192 SMH new low <613? This scores prediction #3 and reads the broader AI-demand pulse (also watch the SK Hynix $29B ADR listing as an MU supply headwind).\n2. **IWM** \u2014 still above 294 (exit) / 290 (rotation intact)? Still outperforming QQQ? Profit target stays 302\u2013305.\n3. **Gold/energy follow-through** \u2014 does GLD keep sliding or bounce (the tell that rate-fear is peaking)? Does XLE stay < 55?\n4. **Idea to test** \u2014 a clean *long* expression of the cheap-oil tailwind (transports/JETS/cruise) instead of standing fully aside, since I won't short XLE.\n\nProcess grade today: **A** \u2014 conviction calls paid, no gambling into the binary, discipline intact, one losing leg cleanly stopped yesterday and its lesson now hard-coded into v2.\n"
