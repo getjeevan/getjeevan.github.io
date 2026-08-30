@@ -1,69 +1,68 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teleprompter Studio</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;background:#111;color:#fff8ea;font-family:Arial,Helvetica,sans-serif}.hidden{display:none!important}.token{min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(420px,100%);background:#f4efe3;color:#171717;border-radius:8px;padding:26px;box-shadow:0 28px 80px rgba(0,0,0,.36)}.label{display:block;margin:0 0 8px;color:#645f55;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}h1{margin:4px 0 22px;font-size:30px;line-height:1.05}input,textarea,button{font:inherit}input,textarea{width:100%;border:1px solid #d8d0c0;border-radius:7px;background:#fffaf0;color:#171717;outline:none}input{height:44px;padding:0 12px;font-weight:800}textarea{min-height:270px;flex:1;resize:none;padding:14px;line-height:1.5}.primary,.secondary,.filebtn{display:inline-flex;min-height:44px;align-items:center;justify-content:center;border-radius:7px;padding:0 12px;font-size:14px;font-weight:900;cursor:pointer}.primary{border:1px solid #171717;background:#171717;color:white}.secondary,.filebtn{border:1px solid #d8d0c0;background:#fffaf0;color:#171717}.filebtn input{display:none}.error{color:#b84d24;font-size:14px;font-weight:800}.shell{display:grid;min-height:100vh;grid-template-columns:390px minmax(0,1fr)}.side{display:flex;min-height:100vh;flex-direction:column;gap:12px;background:#f4efe3;color:#171717;padding:20px;border-right:1px solid rgba(255,255,255,.1)}.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.eyebrow{margin:0;color:#645f55;font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}.playicon{width:40px;height:40px;border:0;border-radius:7px;background:#171717;color:white;font-size:18px;font-weight:950}.stats,.buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.buttons{grid-template-columns:repeat(2,1fr)}.stat{display:flex;flex-direction:column;align-items:center;border:1px solid #ded5c5;border-radius:7px;background:#fffaf0;padding:10px 6px}.stat strong{font-size:22px;font-weight:950;line-height:1}.stat span{margin-top:4px;color:#736c60;font-size:11px;font-weight:800}.stage{display:flex;min-height:100vh;flex-direction:column;background:#10100f}.controls{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr)) repeat(2,96px);gap:12px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.1);background:radial-gradient(circle at 10% 0%,rgba(231,199,136,.14),transparent 32%),#151514}.range{display:flex;flex-direction:column;gap:8px}.range span{display:flex;justify-content:space-between;gap:8px;color:#cfc5b5;font-size:12px;font-weight:900}.range b{color:#fff6e8}.range input,.toggle input{accent-color:#e6bc63}.toggle{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,255,255,.14);border-radius:7px;background:rgba(255,255,255,.06);color:#f8eedc;font-size:13px;font-weight:900}.meter{height:5px;background:#26231d}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#e6bc63,#f3e1ad)}.viewport{height:0;flex:1;overflow:auto}.script{min-height:100%;margin:0 auto;padding:24vh 24px 54vh;color:#fff8ea;font-weight:850;letter-spacing:0;white-space:pre-wrap;text-shadow:0 4px 28px rgba(0,0,0,.42)}.script.mirror{transform:scaleX(-1)}footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;border-top:1px solid rgba(255,255,255,.1);color:#bbb2a3;font-size:14px}@media(max-width:1024px){.shell{grid-template-columns:1fr}.side{min-height:0}.viewport{min-height:58vh}.controls{grid-template-columns:repeat(3,minmax(140px,1fr))}}@media(max-width:700px){.controls{grid-template-columns:1fr 1fr;padding:12px}.script{padding-inline:18px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teleprompter Studio</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#10100f;color:#fff8ea;font-family:Arial,Helvetica,sans-serif}.hide{display:none!important}.gate{min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(420px,100%);background:#f4efe3;color:#171717;border-radius:8px;padding:26px;box-shadow:0 24px 70px #0008}.eyebrow,.label{display:block;color:#665f53;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}.title{margin:5px 0 22px;font-size:30px}.input,.textarea{width:100%;border:1px solid #d8d0c0;border-radius:7px;background:#fffaf0;color:#171717;outline:none}.input{height:44px;padding:0 12px;font-weight:800}.textarea{min-height:300px;flex:1;resize:none;padding:14px;line-height:1.5}.btn,.file{min-height:44px;border-radius:7px;padding:0 12px;font-weight:900;cursor:pointer}.btn{border:1px solid #171717;background:#171717;color:white}.light{border:1px solid #d8d0c0;background:#fffaf0;color:#171717}.file{display:flex;align-items:center;justify-content:center;border:1px solid #d8d0c0;background:#fffaf0;color:#171717}.file input{display:none}.app{display:grid;min-height:100vh;grid-template-columns:390px 1fr}.side{display:flex;min-height:100vh;flex-direction:column;gap:12px;background:#f4efe3;color:#171717;padding:20px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px}.icon{width:42px;height:42px;border:0;border-radius:7px;background:#171717;color:white;font-size:18px;font-weight:900}.stats,.buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.buttons{grid-template-columns:repeat(2,1fr)}.stat{display:flex;flex-direction:column;align-items:center;border:1px solid #ded5c5;border-radius:7px;background:#fffaf0;padding:10px 6px}.stat b{font-size:22px}.stat span{font-size:11px;font-weight:800;color:#736c60}.stage{display:flex;height:100vh;flex-direction:column}.controls{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr)) repeat(2,96px);gap:12px;padding:14px 18px;background:#151514;border-bottom:1px solid #ffffff1a}.range{display:flex;flex-direction:column;gap:8px;color:#cfc5b5;font-size:12px;font-weight:900}.range span{display:flex;justify-content:space-between}.range b{color:#fff6e8}.range input,.toggle input{accent-color:#e6bc63}.toggle{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #ffffff24;border-radius:7px;background:#ffffff10;color:#f8eedc;font-size:13px;font-weight:900}.meter{height:5px;background:#26231d}.meter span{display:block;height:100%;width:0;background:#e6bc63}.viewport{height:0;flex:1;overflow:auto;scroll-behavior:auto}.script{min-height:100%;margin:0 auto;padding:24vh 24px 60vh;max-width:820px;color:#fff8ea;font-size:54px;line-height:1.35;font-weight:850;white-space:pre-wrap;text-shadow:0 4px 28px #000a}.mirror{transform:scaleX(-1)}footer{display:flex;justify-content:space-between;gap:12px;padding:12px 20px;border-top:1px solid #ffffff1a;color:#bbb2a3;font-size:14px}.error{color:#b84d24;font-weight:800}@media(max-width:1024px){.app{grid-template-columns:1fr}.side{min-height:0}.stage{height:70vh}.controls{grid-template-columns:repeat(3,minmax(130px,1fr))}}@media(max-width:700px){.controls{grid-template-columns:1fr 1fr}.script{font-size:40px!important;padding-inline:18px}}
+</style>
 </head>
 <body>
-  <main class="token" id="tokenScreen">
-    <form class="card" id="tokenForm">
-      <p class="eyebrow">Prompt Studio</p>
-      <h1>Teleprompter</h1>
-      <label><span class="label">Access token</span><input id="tokenInput" placeholder="Enter token" autofocus></label>
-      <p class="error hidden" id="tokenError">Token did not match.</p>
-      <button class="primary" style="width:100%;margin-top:18px" type="submit">Open teleprompter</button>
-    </form>
-  </main>
-
-  <main class="shell hidden" id="app">
-    <aside class="side">
-      <div class="brand"><div><p class="eyebrow">Prompt Studio</p><h1>Teleprompter</h1></div><button class="playicon" id="iconPlay" title="Play">&gt;</button></div>
-      <label><span class="label">Title</span><input id="title" value="Launch update"></label>
-      <label style="display:flex;flex:1;min-height:0;flex-direction:column"><span class="label">Script</span><textarea id="editor"></textarea></label>
-      <div class="stats"><div class="stat"><strong id="words">0</strong><span>words</span></div><div class="stat"><strong id="mins">1</strong><span>min read</span></div><div class="stat"><strong id="done">0%</strong><span>done</span></div></div>
-      <div class="buttons"><button class="primary" id="play">Play</button><button class="secondary" id="reset">Reset</button></div>
-      <div class="buttons"><button class="secondary" id="openHtml">Open HTML</button><button class="secondary" id="exportJson">Export JSON</button></div>
-      <label class="filebtn">Import JSON<input type="file" id="importJson" accept="application/json,.json"></label>
-    </aside>
-    <section class="stage">
-      <div class="controls">
-        <label class="range"><span>Speed <b id="speedLabel">34px/s</b></span><input id="speed" type="range" min="8" max="120" value="34"></label>
-        <label class="range"><span>Text <b id="fontLabel">54px</b></span><input id="fontSize" type="range" min="28" max="96" value="54"></label>
-        <label class="range"><span>Lines <b id="lineLabel">1.35x</b></span><input id="lineHeight" type="range" min="1.1" max="1.8" step="0.05" value="1.35"></label>
-        <label class="range"><span>Width <b id="widthLabel">820px</b></span><input id="width" type="range" min="520" max="1200" value="820"></label>
-        <label class="toggle"><input id="mirror" type="checkbox"><span>Mirror</span></label>
-        <label class="toggle"><input id="caps" type="checkbox"><span>Caps</span></label>
-      </div>
-      <div class="meter"><span id="meter"></span></div>
-      <div class="viewport" id="viewport"><article class="script" id="script"></article></div>
-      <footer><span id="timer">0:00</span><span>Spacebar: play or pause</span></footer>
-    </section>
-  </main>
-
+<main class="gate" id="gate">
+<form class="card" id="gateForm">
+<p class="eyebrow">Prompt Studio</p>
+<h1 class="title">Teleprompter</h1>
+<label><span class="label">Access token</span><input class="input" id="tokenInput" placeholder="Enter token" autofocus></label>
+<p class="error hide" id="tokenError">Token did not match.</p>
+<button class="btn" style="width:100%;margin-top:18px" type="submit">Open teleprompter</button>
+</form>
+</main>
+<main class="app hide" id="app">
+<aside class="side">
+<div class="top"><div><p class="eyebrow">Prompt Studio</p><h1 class="title">Teleprompter</h1></div><button class="icon" id="iconPlay">&gt;</button></div>
+<label><span class="label">Title</span><input class="input" id="titleInput" value="Launch update"></label>
+<label style="display:flex;flex:1;min-height:0;flex-direction:column"><span class="label">Script</span><textarea class="textarea" id="editor"></textarea></label>
+<div class="stats"><div class="stat"><b id="wordCount">0</b><span>words</span></div><div class="stat"><b id="minutes">1</b><span>min read</span></div><div class="stat"><b id="percent">0%</b><span>done</span></div></div>
+<div class="buttons"><button class="btn" id="playBtn">Play</button><button class="btn light" id="resetBtn">Reset</button></div>
+<div class="buttons"><button class="btn light" id="openBtn">Open Link</button><button class="btn light" id="jsonBtn">Export JSON</button></div>
+<label class="file">Import JSON<input type="file" id="jsonFile" accept="application/json,.json"></label>
+</aside>
+<section class="stage">
+<div class="controls">
+<label class="range"><span>Speed <b id="speedText">42px/s</b></span><input id="speed" type="range" min="8" max="140" value="42"></label>
+<label class="range"><span>Text <b id="sizeText">54px</b></span><input id="fontSize" type="range" min="28" max="96" value="54"></label>
+<label class="range"><span>Lines <b id="lineText">1.35x</b></span><input id="lineHeight" type="range" min="1.1" max="1.8" step="0.05" value="1.35"></label>
+<label class="range"><span>Width <b id="widthText">820px</b></span><input id="width" type="range" min="520" max="1200" value="820"></label>
+<label class="toggle"><input id="mirror" type="checkbox"><span>Mirror</span></label>
+<label class="toggle"><input id="caps" type="checkbox"><span>Caps</span></label>
+</div>
+<div class="meter"><span id="meter"></span></div>
+<div class="viewport" id="viewport"><article class="script" id="scriptText"></article></div>
+<footer><span id="timer">0:00</span><span>Spacebar: play or pause</span></footer>
+</section>
+</main>
 <script>
-const ACCESS_TOKEN='prompt123';
-const sampleScript='Welcome back. Today we are filming a short product update.\n\nKeep your shoulders relaxed, look just above the lens, and let the words move at a pace that feels natural.\n\nThis simple teleprompter keeps the controls nearby, lets you mirror the script for glass rigs, and exports a portable file you can open anywhere.';
+const TOKEN="prompt123";
+const sample="Welcome back. Today we are filming a short product update.\n\nKeep your shoulders relaxed, look just above the lens, and let the words move at a pace that feels natural.\n\nThis simple teleprompter keeps the controls nearby, lets you mirror the script for glass rigs, and exports a portable file you can open anywhere.\n\nPause between ideas. Smile before the important line. Let the next sentence arrive before you rush into it.\n\nWhen you are ready, press play again and the script will keep moving smoothly down the screen.";
 const $=id=>document.getElementById(id);
-const state={title:'Launch update',script:sampleScript,speed:34,fontSize:54,lineHeight:1.35,width:820,mirror:false,caps:false,running:false,elapsed:0,progress:0,start:null,raf:null};
-const clamp=(v,min,max)=>Math.min(Math.max(v,min),max);
-const slug=t=>t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'teleprompter';
-function unlock(token){if(token===ACCESS_TOKEN){localStorage.setItem('teleprompter-token',ACCESS_TOKEN);$('tokenScreen').classList.add('hidden');$('app').classList.remove('hidden');render();return true}return false}
-$('tokenForm').addEventListener('submit',e=>{e.preventDefault();$('tokenError').classList.toggle('hidden',unlock($('tokenInput').value.trim()))});
-function render(){const words=state.script.trim().split(/\s+/).filter(Boolean).length;$('title').value=state.title;$('editor').value=state.script;$('script').textContent=state.caps?state.script.toUpperCase():state.script;$('script').className='script'+(state.mirror?' mirror':'');$('script').style.maxWidth=state.width+'px';$('script').style.fontSize=state.fontSize+'px';$('script').style.lineHeight=state.lineHeight;$('words').textContent=words;$('mins').textContent=Math.max(1,Math.round(words/150));$('done').textContent=state.progress+'%';$('meter').style.width=state.progress+'%';$('timer').textContent=Math.floor(state.elapsed/60)+':'+String(Math.floor(state.elapsed%60)).padStart(2,'0');$('play').textContent=state.running?'Pause':'Play';$('iconPlay').textContent=state.running?'||':'>';$('speedLabel').textContent=state.speed+'px/s';$('fontLabel').textContent=state.fontSize+'px';$('lineLabel').textContent=state.lineHeight+'x';$('widthLabel').textContent=state.width+'px'}
-function tick(time){if(state.start===null)state.start=time;state.elapsed=(time-state.start)/1000;const max=Math.max(0,$('script').scrollHeight-$('viewport').clientHeight);$('viewport').scrollTop=clamp(state.elapsed*state.speed,0,max);state.progress=max?Math.round(($('viewport').scrollTop/max)*100):0;if($('viewport').scrollTop>=max&&max>0){state.running=false;render();return}render();state.raf=requestAnimationFrame(tick)}
-function togglePlay(){state.running=!state.running;if(state.running){state.start=performance.now()-state.elapsed*1000;state.raf=requestAnimationFrame(tick)}else{cancelAnimationFrame(state.raf)}render()}
-function reset(){state.running=false;state.elapsed=0;state.progress=0;state.start=null;$('viewport').scrollTop=0;cancelAnimationFrame(state.raf);render()}
-function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
-$('title').addEventListener('input',e=>{state.title=e.target.value});$('editor').addEventListener('input',e=>{state.script=e.target.value;reset()});$('play').addEventListener('click',togglePlay);$('iconPlay').addEventListener('click',togglePlay);$('reset').addEventListener('click',reset);$('speed').addEventListener('input',e=>{state.speed=Number(e.target.value);render()});$('fontSize').addEventListener('input',e=>{state.fontSize=Number(e.target.value);render()});$('lineHeight').addEventListener('input',e=>{state.lineHeight=Number(e.target.value);render()});$('width').addEventListener('input',e=>{state.width=Number(e.target.value);render()});$('mirror').addEventListener('change',e=>{state.mirror=e.target.checked;render()});$('caps').addEventListener('change',e=>{state.caps=e.target.checked;render()});
-$('exportJson').addEventListener('click',()=>download(slug(state.title)+'.json',JSON.stringify({title:state.title,script:state.script,speed:state.speed,fontSize:state.fontSize,lineHeight:state.lineHeight,width:state.width,mirror:state.mirror,uppercase:state.caps},null,2),'application/json'));
-$('openHtml').addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([document.documentElement.outerHTML],{type:'text/html'}));window.open(url,'_blank','noopener,noreferrer');setTimeout(()=>URL.revokeObjectURL(url),60000)});
-$('importJson').addEventListener('change',e=>{const file=e.target.files&&e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const incoming=JSON.parse(String(reader.result));state.title=incoming.title||'Imported script';state.script=incoming.script||'';state.speed=clamp(Number(incoming.speed)||34,8,120);state.fontSize=clamp(Number(incoming.fontSize)||54,28,96);state.lineHeight=clamp(Number(incoming.lineHeight)||1.35,1.1,1.8);state.width=clamp(Number(incoming.width)||820,520,1200);state.mirror=Boolean(incoming.mirror);state.caps=Boolean(incoming.uppercase);$('speed').value=state.speed;$('fontSize').value=state.fontSize;$('lineHeight').value=state.lineHeight;$('width').value=state.width;$('mirror').checked=state.mirror;$('caps').checked=state.caps;reset()}catch{alert('That file does not look like a teleprompter project.')}};reader.readAsText(file);e.target.value=''});
-window.addEventListener('keydown',e=>{const tag=e.target&&e.target.tagName;if(e.code==='Space'&&tag!=='TEXTAREA'&&tag!=='INPUT'){e.preventDefault();togglePlay()}});
-unlock(new URLSearchParams(location.search).get('token')||localStorage.getItem('teleprompter-token')||'');
+const state={title:"Launch update",script:sample,speed:42,fontSize:54,lineHeight:1.35,width:820,mirror:false,caps:false,running:false,elapsed:0,progress:0,start:0,raf:0};
+function clamp(v,min,max){return Math.min(Math.max(v,min),max)}
+function render(){const words=state.script.trim().split(/\s+/).filter(Boolean).length;$("titleInput").value=state.title;$("editor").value=state.script;$("scriptText").textContent=state.caps?state.script.toUpperCase():state.script;$("scriptText").className="script"+(state.mirror?" mirror":"");$("scriptText").style.maxWidth=state.width+"px";$("scriptText").style.fontSize=state.fontSize+"px";$("scriptText").style.lineHeight=state.lineHeight;$("wordCount").textContent=words;$("minutes").textContent=Math.max(1,Math.round(words/150));$("percent").textContent=state.progress+"%";$("meter").style.width=state.progress+"%";$("timer").textContent=Math.floor(state.elapsed/60)+":"+String(Math.floor(state.elapsed%60)).padStart(2,"0");$("playBtn").textContent=state.running?"Pause":"Play";$("iconPlay").textContent=state.running?"||":">";$("speedText").textContent=state.speed+"px/s";$("sizeText").textContent=state.fontSize+"px";$("lineText").textContent=state.lineHeight+"x";$("widthText").textContent=state.width+"px"}
+function tick(now){if(!state.start)state.start=now-state.elapsed*1000;state.elapsed=(now-state.start)/1000;const vp=$("viewport");const max=Math.max(0,vp.scrollHeight-vp.clientHeight);vp.scrollTop=clamp(state.elapsed*state.speed,0,max);state.progress=max?Math.round(vp.scrollTop/max*100):0;if(max>0&&vp.scrollTop>=max){state.running=false;render();return}render();state.raf=requestAnimationFrame(tick)}
+function play(){state.running=!state.running;if(state.running){state.start=performance.now()-state.elapsed*1000;state.raf=requestAnimationFrame(tick)}else{cancelAnimationFrame(state.raf)}render()}
+function reset(){state.running=false;state.elapsed=0;state.progress=0;state.start=0;$("viewport").scrollTop=0;cancelAnimationFrame(state.raf);render()}
+function unlock(token){if(token===TOKEN){localStorage.setItem("teleprompter-token",TOKEN);$("gate").classList.add("hide");$("app").classList.remove("hide");render();return true}return false}
+function slug(text){return text.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,"")||"teleprompter"}
+function download(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+$("gateForm").onsubmit=e=>{e.preventDefault();$("tokenError").classList.toggle("hide",unlock($("tokenInput").value.trim()))};
+$("titleInput").oninput=e=>{state.title=e.target.value};$("editor").oninput=e=>{state.script=e.target.value;reset()};$("playBtn").onclick=play;$("iconPlay").onclick=play;$("resetBtn").onclick=reset;
+$("speed").oninput=e=>{state.speed=Number(e.target.value);render()};$("fontSize").oninput=e=>{state.fontSize=Number(e.target.value);render()};$("lineHeight").oninput=e=>{state.lineHeight=Number(e.target.value);render()};$("width").oninput=e=>{state.width=Number(e.target.value);render()};$("mirror").onchange=e=>{state.mirror=e.target.checked;render()};$("caps").onchange=e=>{state.caps=e.target.checked;render()};
+$("jsonBtn").onclick=()=>download(slug(state.title)+".json",JSON.stringify({title:state.title,script:state.script,speed:state.speed,fontSize:state.fontSize,lineHeight:state.lineHeight,width:state.width,mirror:state.mirror,uppercase:state.caps},null,2),"application/json");
+$("openBtn").onclick=()=>{const url=URL.createObjectURL(new Blob([document.documentElement.outerHTML],{type:"text/html"}));window.open(url,"_blank","noopener,noreferrer");setTimeout(()=>URL.revokeObjectURL(url),60000)};
+$("jsonFile").onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(String(r.result));state.title=x.title||"Imported script";state.script=x.script||"";state.speed=clamp(Number(x.speed)||42,8,140);state.fontSize=clamp(Number(x.fontSize)||54,28,96);state.lineHeight=clamp(Number(x.lineHeight)||1.35,1.1,1.8);state.width=clamp(Number(x.width)||820,520,1200);state.mirror=!!x.mirror;state.caps=!!x.uppercase;$("speed").value=state.speed;$("fontSize").value=state.fontSize;$("lineHeight").value=state.lineHeight;$("width").value=state.width;$("mirror").checked=state.mirror;$("caps").checked=state.caps;reset()}catch{alert("That file does not look like a teleprompter project.")}};r.readAsText(f);e.target.value=""};
+window.onkeydown=e=>{const tag=e.target&&e.target.tagName;if(e.code==="Space"&&tag!=="TEXTAREA"&&tag!=="INPUT"){e.preventDefault();play()}};
+unlock(new URLSearchParams(location.search).get("token")||localStorage.getItem("teleprompter-token")||"");
 </script>
 </body>
 </html>
